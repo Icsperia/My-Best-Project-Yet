@@ -1,0 +1,317 @@
+<?xml version="1.0" ?>
+<robot name="maxarmv2.2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find maxarmv2.2_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find maxarmv2.2_description)/urdf/maxarmv2.2.trans" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.06851925802783315 -0.20066502660556693 -0.13003675901283548" rpy="0 0 0"/>
+    <mass value="0.8787343158834202"/>
+    <inertia ixx="0.001759" iyy="0.002319" izz="0.001757" ixy="-2e-06" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="baseRotative_1">
+  <inertial>
+    <origin xyz="-0.0009907873133099682 0.016787143764071533 0.000494942595259118" rpy="0 0 0"/>
+    <mass value="1.86765389888504"/>
+    <inertia ixx="0.000824" iyy="0.002279" izz="0.002017" ixy="1.8e-05" iyz="-7e-06" ixz="3e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.068563 0.173643 0.130106" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="baseRotative_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.068563 0.173643 0.130106" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="baseRotative_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="verticalArm_1">
+  <inertial>
+    <origin xyz="-0.006050540757334667 0.08351330906154378 0.0049132458615377544" rpy="0 0 0"/>
+    <mass value="0.14739200582449302"/>
+    <inertia ixx="0.00029" iyy="1.3e-05" izz="0.000292" ixy="-8e-06" iyz="5e-06" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.059262 0.146135 0.118106" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="verticalArm_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.059262 0.146135 0.118106" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="verticalArm_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="upDownSegmentV2_1">
+  <inertial>
+    <origin xyz="0.0009998959071184782 -0.00037147404471549184 -0.023606085290197712" rpy="0 0 0"/>
+    <mass value="0.018110422050386776"/>
+    <inertia ixx="7e-06" iyy="7e-06" izz="1e-06" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.079876 0.146135 0.118106" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="upDownSegmentV2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.079876 0.146135 0.118106" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="upDownSegmentV2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="vertical1_1">
+  <inertial>
+    <origin xyz="0.0014998959071188256 0.063000073409306 9.198593917403297e-07" rpy="0 0 0"/>
+    <mass value="0.021426783389772195"/>
+    <inertia ixx="4.7e-05" iyy="0.0" izz="4.7e-05" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.077876 0.145756 0.168195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="vertical1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.077876 0.145756 0.168195" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="vertical1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="vertical2_1">
+  <inertial>
+    <origin xyz="-0.0024999240722636887 0.06477744641605164 -0.011283927665026089" rpy="0 0 0"/>
+    <mass value="0.0859830877844402"/>
+    <inertia ixx="0.000153" iyy="4e-06" izz="0.000149" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.046791 0.120729 0.151792" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="vertical2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.046791 0.120729 0.151792" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="vertical2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="horizontalArm__1__1">
+  <inertial>
+    <origin xyz="0.008083390783413524 0.01406642749625104 0.04572941646232688" rpy="0 0 0"/>
+    <mass value="0.17422457487546347"/>
+    <inertia ixx="0.000481" iyy="0.000489" izz="2.7e-05" ixy="-1e-06" iyz="-2e-06" ixz="-8e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.076077 0.016999 0.116678" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="horizontalArm__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.076077 0.016999 0.116678" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="horizontalArm__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pumpSupport__1">
+  <inertial>
+    <origin xyz="-0.013225048763730894 -0.008319858416126582 0.016854296302047746" rpy="0 0 0"/>
+    <mass value="0.05527320439023157"/>
+    <inertia ixx="1.1e-05" iyy="9e-06" izz="9e-06" ixy="-1e-06" iyz="-1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.054876 0.014808 -0.020857" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="pumpSupport__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.054876 0.014808 -0.020857" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="pumpSupport__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="pumpSupport2_1">
+  <inertial>
+    <origin xyz="-0.006551765870353915 -0.015049134349220325 -0.003984720757475298" rpy="0 0 0"/>
+    <mass value="0.055709567705183524"/>
+    <inertia ixx="2.2e-05" iyy="5.1e-05" izz="4.4e-05" ixy="7e-06" iyz="4e-06" ixz="-2.1e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.068876 0.040808 -0.033857" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="pumpSupport2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.068876 0.040808 -0.033857" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="pumpSupport2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="horizontalSegmentV2.2_1">
+  <inertial>
+    <origin xyz="0.002500075927735726 -0.007760309607906005 0.03498925149398184" rpy="0 0 0"/>
+    <mass value="0.04167987057950025"/>
+    <inertia ixx="2.7e-05" iyy="2.3e-05" izz="5e-06" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.046791 -0.010001 0.151791" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="horizontalSegmentV2.2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.046791 -0.010001 0.151791" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="horizontalSegmentV2.2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="horizontalSegmentV2.1__1__1">
+  <inertial>
+    <origin xyz="-0.002576456599022392 -5.615310798741391e-07 0.0674432607156595" rpy="0 0 0"/>
+    <mass value="0.03609038376341679"/>
+    <inertia ixx="8.3e-05" iyy="8.3e-05" izz="0.0" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.046791 -0.01 0.081791" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="horizontalSegmentV2.1__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.046791 -0.01 0.081791" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="horizontalSegmentV2.1__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 2" type="revolute">
+  <origin xyz="-0.068563 -0.173643 -0.130106" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="baseRotative_1"/>
+  <axis xyz="0.0 1.0 8e-06"/>
+  <limit upper="4.712389" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 21" type="revolute">
+  <origin xyz="0.009301 0.027508 0.012" rpy="0 0 0"/>
+  <parent link="baseRotative_1"/>
+  <child link="verticalArm_1"/>
+  <axis xyz="-1.0 0.0 -0.0"/>
+  <limit upper="0.785398" lower="-0.785398" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 22" type="revolute">
+  <origin xyz="-0.011313 0.027508 0.012" rpy="0 0 0"/>
+  <parent link="baseRotative_1"/>
+  <child link="upDownSegmentV2_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+  <limit upper="0.349066" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 23" type="revolute">
+  <origin xyz="0.002 0.000379 -0.050089" rpy="0 0 0"/>
+  <parent link="upDownSegmentV2_1"/>
+  <child link="vertical1_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+  <limit upper="0.785398" lower="-0.785398" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 24" type="revolute">
+  <origin xyz="0.021772 0.052914 -0.021686" rpy="0 0 0"/>
+  <parent link="baseRotative_1"/>
+  <child link="vertical2_1"/>
+  <axis xyz="-1.0 0.0 -0.0"/>
+  <limit upper="0.0" lower="-0.785398" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 54" type="revolute">
+  <origin xyz="-0.016815 0.129136 0.001428" rpy="0 0 0"/>
+  <parent link="verticalArm_1"/>
+  <child link="horizontalArm__1__1"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="0.785398" lower="-0.785398" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 57" type="revolute">
+  <origin xyz="0.021201 0.002191 0.137535" rpy="0 0 0"/>
+  <parent link="horizontalArm__1__1"/>
+  <child link="pumpSupport__1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 58" type="revolute">
+  <origin xyz="-0.014 -0.026 0.013" rpy="0 0 0"/>
+  <parent link="pumpSupport__1"/>
+  <child link="pumpSupport2_1"/>
+  <axis xyz="-0.0 -1.0 -8e-06"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 75" type="revolute">
+  <origin xyz="0.0 0.13073 1e-06" rpy="0 0 0"/>
+  <parent link="vertical2_1"/>
+  <child link="horizontalSegmentV2.2_1"/>
+  <axis xyz="1.0 0.0 0.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+<joint name="Revolute 78" type="revolute">
+  <origin xyz="0.0 -1e-06 0.07" rpy="0 0 0"/>
+  <parent link="horizontalSegmentV2.2_1"/>
+  <child link="horizontalSegmentV2.1__1__1"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="1.570796" lower="-1.570796" effort="100" velocity="100"/>
+</joint>
+
+</robot>
