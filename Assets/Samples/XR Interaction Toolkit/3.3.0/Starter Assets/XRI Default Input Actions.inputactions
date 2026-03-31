@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "XRI Default Input Actions",
     "maps": [
         {
@@ -3395,6 +3396,34 @@
                     "action": "Spawn Object",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "ArmRotate",
+            "id": "6a4ff965-5a14-4246-a859-232e4a92ee46",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "39dcf4c1-fbdb-4d61-85c7-048bdb072b92",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "53dc2012-8420-4cf6-8a41-8e108dfa88ad",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

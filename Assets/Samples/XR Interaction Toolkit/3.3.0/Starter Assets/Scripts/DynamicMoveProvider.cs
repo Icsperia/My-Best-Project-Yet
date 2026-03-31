@@ -60,11 +60,11 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
         [Tooltip("Directs the XR Origin's movement when using the hand-relative mode with the right hand.")]
         Transform m_RightControllerTransform;
 
-        public Transform rightControllerTransform
-        {
-            get => m_RightControllerTransform;
-            set => m_RightControllerTransform = value;
-        }
+        // public Transform rightControllerTransform
+        // {
+        //     get => m_RightControllerTransform;
+        //     set => m_RightControllerTransform = value;
+        // }
 
         [SerializeField]
         [Tooltip("Whether to use the specified head transform or left controller transform to direct the XR Origin's movement for the left hand.")]
@@ -112,79 +112,32 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
         }
 
         /// <inheritdoc />
-        protected override Vector3 ComputeDesiredMove(Vector2 input)
-        {
-            // Don't need to do anything if the total input is zero.
-            // This is the same check as the base method.
-            if (input == Vector2.zero)
-                return base.ComputeDesiredMove(input);
+       protected override Vector3 ComputeDesiredMove(Vector2 input)
+{
+    if (input == Vector2.zero)
+        return Vector3.zero;
 
-            // Initialize the Head Transform if necessary, getting the Camera from XR Origin
-            if (m_HeadTransform == null)
-            {
-                var xrOrigin = mediator.xrOrigin;
-                if (xrOrigin != null)
-                {
-                    var xrCamera = xrOrigin.Camera;
-                    if (xrCamera != null)
-                        m_HeadTransform = xrCamera.transform;
-                }
-            }
-
-            // Get the forward source for the left hand input
-            switch (m_LeftHandMovementDirection)
-            {
-                case MovementDirection.HeadRelative:
-                    if (m_HeadTransform != null)
-                        m_LeftMovementPose = m_HeadTransform.GetWorldPose();
-
-                    break;
-
-                case MovementDirection.HandRelative:
-                    if (m_LeftControllerTransform != null)
-                        m_LeftMovementPose = m_LeftControllerTransform.GetWorldPose();
-
-                    break;
-
-                default:
-                    Assert.IsTrue(false, $"Unhandled {nameof(MovementDirection)}={m_LeftHandMovementDirection}");
-                    break;
-            }
-
-            // Get the forward source for the right hand input
-            switch (m_RightHandMovementDirection)
-            {
-                case MovementDirection.HeadRelative:
-                    if (m_HeadTransform != null)
-                        m_RightMovementPose = m_HeadTransform.GetWorldPose();
-
-                    break;
-
-                case MovementDirection.HandRelative:
-                    if (m_RightControllerTransform != null)
-                        m_RightMovementPose = m_RightControllerTransform.GetWorldPose();
-
-                    break;
-
-                default:
-                    Assert.IsTrue(false, $"Unhandled {nameof(MovementDirection)}={m_RightHandMovementDirection}");
-                    break;
-            }
-
-            // Combine the two poses into the forward source based on the magnitude of input
-            var leftHandValue = leftHandMoveInput.ReadValue();
-            var rightHandValue = rightHandMoveInput.ReadValue();
-
-            var totalSqrMagnitude = leftHandValue.sqrMagnitude + rightHandValue.sqrMagnitude;
-            var leftHandBlend = 0.5f;
-            if (totalSqrMagnitude > Mathf.Epsilon)
-                leftHandBlend = leftHandValue.sqrMagnitude / totalSqrMagnitude;
-
-            var combinedPosition = Vector3.Lerp(m_RightMovementPose.position, m_LeftMovementPose.position, leftHandBlend);
-            var combinedRotation = Quaternion.Slerp(m_RightMovementPose.rotation, m_LeftMovementPose.rotation, leftHandBlend);
-            m_CombinedTransform.SetPositionAndRotation(combinedPosition, combinedRotation);
-
-            return base.ComputeDesiredMove(input);
-        }
+    // 1. Ne asigurăm că avem referința la cameră (cap)
+    if (m_HeadTransform == null)
+    {
+        var xrOrigin = mediator.xrOrigin;
+        if (xrOrigin != null && xrOrigin.Camera != null)
+            m_HeadTransform = xrOrigin.Camera.transform;
     }
+
+    if (m_HeadTransform != null)
+    {
+        // 2. Aliniem transform-ul combinat (sursa de forward) cu rotația capului
+        // Luăm doar rotația pe axa Y pentru a nu merge "în sus" când privim spre cer
+        Vector3 headForward = m_HeadTransform.forward;
+        headForward.y = 0; // Proiecție pe plan orizontal
+        
+        m_CombinedTransform.rotation = Quaternion.LookRotation(headForward.normalized);
+        m_CombinedTransform.position = m_HeadTransform.position;
+    }
+
+    // 3. Apelăm metoda de bază care va folosi m_CombinedTransform drept "forwardSource"
+    return base.ComputeDesiredMove(input);
+}
+}
 }
