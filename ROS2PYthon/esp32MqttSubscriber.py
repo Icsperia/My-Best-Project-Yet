@@ -5,20 +5,38 @@ from umqttsimple import MQTTClient
 
 class esp32MQTTSubscriber:
 
-        def __init__(self,CLIENT_ID, MQTT_SERVER, MQTT_PORT):
-               self.CLIENT_ID=CLIENT_ID
-               self.MQTT_SERVER=MQTT_SERVER
-               self.MQTT_PORT=MQTT_PORT
-              
-        
-    
+        def __init__(self):
 
-
+            self.client = None
+            self.fbaseAngle = 0.0
+            self.verticalArmAngle=0.0
+            self.upDownAngle=0.0
+            
         
         
         def identificationInfoSubs(self,CLIENT_ID, MQTT_SERVER, MQTT_PORT):
                 self.client = MQTTClient(CLIENT_ID, MQTT_SERVER, MQTT_PORT)
+                self.client.set_callback(self.CallBack)
+        def CallBack(self, topic, msg):
+            try:
+            
+                    try:
+                        self.fbaseAngle = float(msg.decode())
+                        self.verticalArmAngle= float(msg.decode())
+                        
+                    except ValueError:
+                
+                        print("Eroare: Mesajul nu poate fi convertit în float.")
+                
+            except Exception as e:
+                
+                print("Eroare neprevăzută în CallBack:", e)
+          
+                      
+               
+
         
+      
         def connectToBroker(self):
                 try:
                         print('Connect to Mqtt broker...')
@@ -32,15 +50,17 @@ class esp32MQTTSubscriber:
         def sub(self,topic):
             
                 self.client.subscribe(topic)
-                while True:
-                        if True:
-                                self.client.wait_msg()
-                        else:
-                                self.client.check_msg()
-                                time.sleep(1)
-        def CallBack(topic, msg):
-                print('Received message on topic:', topic)
-                print('Response:', msg)
+            
+#                 while True:
+#                         if True:
+#                                 self.client.wait_msg()
+#                         else:
+#                                 self.client.check_msg()
+#                                 time.sleep(1)
+# 
+
+              
 
                
                
+

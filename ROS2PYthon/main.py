@@ -48,20 +48,21 @@ connectToWifi.connect("Redmi Note 12 Pro 5G","12345678")
 #udpEsp32.connectUDP(' 192.168.29.61', 5005)
 
 #MQTTEsp.identificationInfo("MaxArm",'10.206.197.112',1883)
-MQTTEspSubs.identificationInfoSubs("MaxArm",'10.206.197.112',1883)
+MQTTEspSubs.identificationInfoSubs("MaxArmNew",'10.206.197.112',1883)
 MQTTEspSubs.connectToBroker()
 MQTTEspSubs.sub("rotativeBase/topic")
-
+MQTTEspSubs.sub("verticalArm/topic")
+MQTTEspSubs.sub("upDownSegment/topic")
 #MQTTEsp.connectToBroker()
 #/////////////////////////
-arm.go_home()
+# arm.go_home()
 print_en = True
 nozzle_st = False
 nozzle_angle = 0
 buzzer.setBuzzer(80)
 (x,y,z) = arm.ORIGIN
 move_sleep = time.ticks_ms()
-nozzle.set_angle(nozzle_angle)
+# nozzle.set_angle(nozzle_angle)
 
 
 #  
@@ -215,25 +216,25 @@ nozzle.set_angle(nozzle_angle)
 
 
 def main(t):
-  global xDelta,y,z, move_sleep, nozzle_angle
+  global xDelta,yDelta,zDelta, move_sleep, nozzle_angle
   #，
   
   gc.collect()
-  key.run_loop()
-  USBDevice.run_loop()
-  
-  # BleHandle()
+#   key.run_loop()
+#   USBDevice.run_loop()
+#   
+#   # BleHandle()
   # MouseHandle()
 
-  if key.down_up(): # key1100
-    if time.ticks_ms() >= move_sleep:
-      robot.runActionGroup("100")
-      move_sleep = time.ticks_ms() + 1500
-    
-  if key.down_long(): # key1
-    if time.ticks_ms() >= move_sleep:
-      robot.stopActionGroup()
-      move_sleep = time.ticks_ms() + 300
+#   if key.down_up(): # key1100
+#     if time.ticks_ms() >= move_sleep:
+#       robot.runActionGroup("100")
+#       move_sleep = time.ticks_ms() + 1500
+#     
+#   if key.down_long(): # key1
+#     if time.ticks_ms() >= move_sleep:
+#       robot.stopActionGroup()
+#       move_sleep = time.ticks_ms() + 300
 
 
 print("Start")
@@ -244,24 +245,60 @@ print("Start")
 threshold  = 0.01
 angleInterval = 0
 while True:
-  
+    # 1. Verificăm mesajele noi
     if MQTTEspSubs.client:
         MQTTEspSubs.client.check_msg()
         
+    # 2. Citim valorile curente primite prin MQTT
     xDelta = MQTTEspSubs.fbaseAngle
-   
+    yDelta = MQTTEspSubs.verticalArmAngle
+    zDelta = MQTTEspSubs.upDownAngle
+
+    # 3. Executăm mișcarea la intervalul de timp stabilit
     if time.ticks_ms() >= move_sleep:
         
-          if arm.set_position((x + xDelta, y, z), 20):
-              x += xDelta
-             
-              xDelta=0
-              MQTTEspSubs.fbaseAngle = 0 #
+        # Verificăm dacă există orice comandă de mișcare (orice delta != 0)
+        if xDelta != 0 or yDelta != 0 or zDelta != 0:
+            
+            # Calculăm poziția țintă (X, Y, Z)
+            target_x = x + xDelta
+            target_y = y + yDelta
+            target_z = z + zDelta
+            
+            # Încercăm să mutăm brațul la noua poziție combinată
+            # Folosim o singură comandă set_position pentru toate axele simultan
+            if arm.set_position((target_x, target_y, target_z), 20):
+                # DOAR DACĂ mișcarea este validă fizic, actualizăm poziția curentă
+                x = target_x
+                y = target_y
+                z = target_z
                 
+                # Resetăm flag-urile din Subscriber DOAR după ce au fost aplicate cu succes
+                MQTTEspSubs.fbaseAngle = 0
+                MQTTEspSubs.verticalArmAngle = 0
+                MQTTEspSubs.upDownAngle = 0
+                
+                print("Robot mutat la -> X:{:.1f}, Y:{:.1f}, Z:{:.1f}".format(x, y, z))
+            else:
+                # Dacă poziția este imposibilă, scoatem un sunet scurt (avertizare limite)
+                buzzer.setBuzzer(10)
+                # Opțional: Resetăm deltele oricum pentru a nu rămâne blocați într-o eroare
+                MQTTEspSubs.fbaseAngle = 0
+                MQTTEspSubs.verticalArmAngle = 0
+                MQTTEspSubs.upDownAngle = 0
 
-          move_sleep = time.ticks_ms() + 30
+        # Actualizăm timpul pentru următoarea mișcare
+        move_sleep = time.ticks_ms() + 30
+
+    # Pauză scurtă pentru a lăsa procesorul să respire
+    time.sleep(0.005)
+          
+                     
+        
    
     time.sleep(0.005)
+
+
 
 
 

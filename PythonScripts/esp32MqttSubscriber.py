@@ -6,9 +6,12 @@ from umqttsimple import MQTTClient
 class esp32MQTTSubscriber:
 
         def __init__(self):
-        
+
             self.client = None
-            self.fbase_angle = 0.0
+            self.fbaseAngle = 0.0
+            self.verticalArmAngle=0.0
+            self.upDownAngle=0.0
+            
         
         
         def identificationInfoSubs(self,CLIENT_ID, MQTT_SERVER, MQTT_PORT):
@@ -16,21 +19,29 @@ class esp32MQTTSubscriber:
                 self.client.set_callback(self.CallBack)
         def CallBack(self, topic, msg):
             try:
-                data = msg.decode()
         
-                
-                for i in data.split():
-                    try:
-           
-                        self.fbaseAngle = float(i)
-                        print(self.fbaseAngle)
-                    except ValueError:
-                 
-                        continue 
+                topic_str = topic.decode()
+      
+                msg_str = msg.decode().strip()
+        
+       
+                print("MQTT RECEIVE -> Topic: {} | Msg: [{}]".format(topic_str, msg_str))
+        
+                msgReceived = float(msg_str)
+        
+                if topic_str == "rotativeBase/topic":
+                    self.fbaseAngle = msgReceived 
+                elif topic_str == "verticalArm/topic":
+                    self.verticalArmAngle = msgReceived 
+                elif topic_str == "upDownSegment/topic":
+                    self.upDownAngle = msgReceived 
+
+            except ValueError:
+                print("Eroare conversie float: Nu pot converti '{}'".format(msg))
             except Exception as e:
-                print("Eroare neprevazuta in CallBack:", e)
-        
-               
+                print("Eroare neprevăzută în CallBack:", e)
+          
+                      
                
 
         
@@ -61,3 +72,4 @@ class esp32MQTTSubscriber:
 
                
                
+

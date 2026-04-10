@@ -38,10 +38,10 @@ public class Compensations : MonoBehaviour
     {
        
   
-        float angleVertical = verticalArm.jointPosition[0] * Mathf.Rad2Deg;
-        
+        float angleV =   verticalArm.jointPosition[0];
+        float angleVertical = angleV* Mathf.Rad2Deg;
         var driveH = horizontalArm.xDrive;
-
+        // Debug.Log($"Sursa: { verticalArm} | Radiani: { angleV} | Grade: {angleVertical }");
         float totalBaseAngle = -(angleUpDown + angleVertical);
 
    

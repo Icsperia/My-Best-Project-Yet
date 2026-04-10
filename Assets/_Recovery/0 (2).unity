@@ -5974,15 +5974,11 @@ MonoBehaviour:
   rotativeBase: {fileID: 328962975}
   verticalArm: {fileID: 1979754405}
   upDownSegment: {fileID: 803675112}
-  delay1: 0
-  delay2: 0
-  delay3: 0
-  angleInterval: 0
-  lastAngleY: 0
-  lastAngle: 0
-  angleInterval1: 0
-  lastAngleZ: 0
-  angleIntervalZ: 0
+  brokerIp: 10.206.197.112
+  brokerPort: 1883
+  sensitivity: 500
+  publishDelay: 0.05
+  deadzone: 1
 --- !u!4 &1452340064
 Transform:
   m_ObjectHideFlags: 0
