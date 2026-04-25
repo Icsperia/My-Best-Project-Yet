@@ -20,13 +20,11 @@ public class RobotIndepententControl : MonoBehaviour
     void Update()
     {
         float input = 0;
-        var kb = Keyboard.current;
 
-        if (kb == null) return;
 
-        // Folosim taste care NU sunt folosite de XR Interaction Toolkit
-        if (kb.uKey.isPressed) input = 1f; // Tasta U pentru un sens
-        else if (kb.jKey.isPressed) input = -1f; // Tasta J pentru celălalt sens
+
+
+   
 
         if (input != 0)
         {

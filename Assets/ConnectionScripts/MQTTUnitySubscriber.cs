@@ -6,17 +6,18 @@ using System.Text;
 using UnityEditor.PackageManager;
 using System;
 
-public class MQTTUnityClient : MonoBehaviour
+public class Subscriber : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private MqttClient clientUnity;
     public string brokerIp = "10.206.197.112";
-    public string topic = "robot/coodonate";
+    public int brokerPort = 1883;
+    public string topic = "robot/coodonateBazaRotativa";
     
     void Start()
     {
         clientUnity = new MqttClient(brokerIp);
-        clientUnity.MqttMsgPublishReceived += onMessageReceived;
+      
 
     
         clientUnity.Connect(brokerIp);

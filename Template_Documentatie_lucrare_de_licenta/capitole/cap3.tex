@@ -1,0 +1,180 @@
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand{\contentsname}{Cuprins}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabel}
+
+\setcounter{tocdepth}{6}
+\setcounter{secnumdepth}{6}
+
+
+% \usepackage[backend=bibtex,style=numeric,citestyle=numeric,backref=true,sorting=none]{biblatex}
+
+
+
+
+\titleformat{\section}{\normalfont\Large\justifyheading}{\thesection}{18pt}{}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{10}{10}\selectfont\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=2pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+\setmainfont{UTSans-Regular.otf}
+
+
+
+
+
+\newpage
+
+
+
+\newpage
+\pagenumbering{arabic}
+\renewcommand{\bibname}{Bibliografie}
+\renewcommand\lstlistlistingname{\normalsize{CODURI SURSĂ}}
+\renewcommand{\lstlistingname}{\normalsize{Secvență de Cod}}
+\renewcommand{\listfigurename}{FIGURI}
+\renewcommand{\cftloftitlefont}{\normalsize}
+\renewcommand{\cftfigfont}{\normalsize}
+\renewcommand{\cftfigpagefont}{\normalsize}
+\renewcommand{\listtablename}{TABELE}
+\renewcommand{\cftlottitlefont}{\normalsize}
+\renewcommand{\cfttabfont}{\normalsize}
+\renewcommand{\cfttabpagefont}{\normalsize}
+\clearpage
+
+% % trebuie completata manual
+
+
+
+
+
+\setcounter{page}{9}
+
+\section{Tehnologii folosite}
+\subsection{Unity}
+Unity reprezintă o platformă interactivă de creare de conținut 3D,  2D pentru VR și AR. \cite{unity}.
+
+Acesta este un motor de creare de conținut în timp real pentru crearea de experiențe care sunt interactive într-un mod complet care este destinat atât utilizatorului final cât și pentru creatorii de conținut \cite{unity}.
+
+Termenul de timp real descrie rapiditatea cu care o imagine este randată sau afișată pe un ecran chiar și când aceasta este schimbată de către utilizator. Scopul programelor software de timp real este de a randa imaginile atât de rapid încât interacțiunea cu mediul virtual să se facă fără observarea acută a întârzierilor\cite{unity}.
+
+Unity are aplicații în următoarele domenii:media, divertisment, arhitectură
+inginerie, construcții, automotiv, transport și producție\cite{unity}.
+
+Unity în acest proiect a fost folosit pentru simplitatea cu care acest motor de creare a conținutului 3D integrează tehnologii de modelare de conținut 3D, cât și tehnologii de vizualizare și interacțiune cu roboții\cite{unity}.
+
+\subsubsection{Unity XR Interaction Toolkit}
+XR Interaction Toolkit este un sistem de nivel înalt și bazat pe componente de interacțiune pentru crearea de aplicații VR și AR. Oferă un framework care poate fi folosit în dezvoltarea de interacțiuni de 3D și UI, acestea fiind disponibile din Unity Inout Events. Centrul acestui sistem este bazat pe un interactor și componente interacționabile, și un gestionator de interacțiuni care leagă împreună aceste tipuri de componente. De asemenea conține componente care pot fi folosite pentru locomoție și desenare \cite{XRI}.
+
+XR Interaction ToolKit conține următorul set de componente care suportă următoarele acțiuni de interacțiune:
+\begin{itemize}
+	\item Compatibilitate cu o gamă înalte de platforme folosite pentru control: Meta Quest, OpenXR, Windows Mixed Reality și altele \cite{XRI}
+	\item Manipulare de bază a obiectelelor din scenă \cite{XRI}
+	\item Feedback haptic prin manetele de XR \cite{XRI}
+	\item Feedback vizual pentru indicarea interacțiunilor active și posibile \cite{XRI}
+	\item Interacțiune utilă cu XR Origin, ce reprezintă o componentă de cameră VR folosită în manevrarea staționară și în funcție de mărimea zonei a experiențelor VR \cite{XRI}
+\end{itemize}
+
+\subsubsection{Articulation Body}
+Articulation body reprezintă o componentă ce permite construirea de articulații fizice cum sunt brațele robotice, lanțuri cinematice cu GameObjects care sunt organizate într-un mod ierarhic de tipul părinte-copil sau arbore. Acestea ajută în obținerea de fizică comportamentală realistică în contextul simulărilor și aplicațiilor industriale \cite{ABC}.
+
+
+
+Un articulation body permite definirea pentru un singur obiect proprietăți care pot fi definite de alte componente asemănătoare cum sunt RigidBody sau regular Joint într-o configurație clasică. Aceste proprietăți depind de tipul de poziția obiectului în ierarhie \cite{ABC}. 
+
+Acestea sunt:
+\begin{itemize}
+	\item pentru obiectul rădăcină sau baza:masa, mutabilitatea, și dacă să folosească gravitația \cite{ABC}
+	\item pentru obiectele copil sau brațe: masa, dacă să folosească gravitația, tipul pe rotație al ariticulației, legarea de ancora părintelui, poziția și rotația ancorei, fricțiunea articulației, amortizarea liniară și unghiulară, gradele de libertate ale mișcării, limitele unghiulare superioare și inferioare, rigiditatea, amortizarea, limita forței, poziția unghiului și viteza de deplasare \cite{ABC}.
+\end{itemize}
+Articulațiie din articulation body sunt rezolvate folosind metoda Featherstone care lucrează folosind coordonare reduse prin: fiecare corp, copil sau componentă are coordonare relative față de  părintele acestuia dar numai în jurul gradelor de libertate care le are setate. Acestea garantează că nu vor exista întinderi care nu sunt necesare \cite{ABC1}.
+
+\subsubsection{Unity URDF Importer}
+Unity URDF Importer reprezintă un pachet de Unity ce permite importarea unui robot definit prin formatul URDF într-o scenă din Unity. Importatorul pasează un fișier URDF și îl importă în Unity folosind articulation body \cite{UU}.
+
+\subsection{Fusion 360}
+Fusion 360 reprezintă o platformă care combină CAD, CAM, CAE, PCB, gestionarea datelor într-o singură și integrată platformă software în cloud \cite{Fusion}.
+
+Fusin este capabil să:
+\begin{itemize}
+	\item Să explorere iterații ale proiectului cu ușurință folosind unelte de modelare 3D \cite{Fusion}
+	\item Să producă părți de mașini CNC la o calitate înaltă cu uneltele de CAM/CAM integrate \cite{Fusion}
+	\item Să se acceseze proiecte electronice întregi \cite{Fusion}
+	\item Oferă unelte de simulare 3D pentru proiect \cite{Fusion}
+	\item Se poate explora rezultate care sunt pregătite pentru producție cu proiect generativ  \cite{Fusion}
+\end{itemize}
+
+\section{Echipamente folosite}
+
+\subsection{MaxArm}
+
+MaxArm este un brat robotic dezvoltat de compania HiWonder. Este un brat robotic open-source care este controlat de un microcontroler ESP32. Acesta este un robot care poate fi folosit în scop educativ sau în proiecte avansate. Robotul este echipat cu servo motoare de înaltă calitate și o pompă de subțiune. 
+
+Prin cele 4 grade de libertate:stânga-dreapta, sus-jos, față-spate, și rotația de obiecte. Prin aceste grade și tehnologia de cinematică inversă, acesta poate să execute o gamă largă de sarcini cum ar fi: apucare, sortare, trabsportare și stivuire de obiecte. Acesta suportă comunicare prin Bluetooth și WIFI și programare folosind Python prin Micro-Python și Arduino prin C/C++ \cite{MaxArm}. 
+
+\begin{figure}[h]
+	\centerline{\includegraphics[width=0.4\textwidth]{MaxArm.png}}
+	\caption[(Braul Robotic MaxArm)]{Brațul Robotic MaxArm}
+	\label{fig:top}
+\end{figure}
+
+
+
+\subsection{Oculus Quest 3S}
+
+Oculus Quest 3S sunt o pereche de ochelari de realitate mixtă de buget dezvoltată de compania Meta \cite{Quest3S}. 
+
+Specificații \cite{Quest3S}:
+\begin{itemize}
+	\item Procesor: Snapdragon XR2 Gen 2
+	\item Camere: 2 camere RGB cu PPD de 18 
+	\item Stocare: 128GB/256GB
+	\item DRAM: 8GB
+	\item Rezoluție ecran: 1832x1920 pixeli/ochi cu 20 PPD și 773 PPI
+	\item Rată de reîmprospătare: 72Hz, 90Hz, 120Hz
+	\item Unghi de vizualizare: 96 de grade orizontal, 90 de grade vertical
+	\item Optică: lentile fresnel
+	\item Conectivitate: USB-c și WIFI
+	\item Durată baterie: aproximativ 2.6 ore
+	\item Timp de încărcare: aproximativ 1.9 ore pe 18Watts
+
+\end{itemize}
+
+\begin{figure}[h]
+	\centerline{\includegraphics[width=0.7\textwidth]{Quest3S.png}}
+	\caption[(Quest3S)]{Ochelari de realitate virutală Oculus Quest3S}
+	\label{fig:top}
+\end{figure}
+% \nocite{*}
+\ToDo {Specificatii robot}
+
+

@@ -1,128 +1,106 @@
-
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class InverseKinematic : MonoBehaviour
+public class MaxArmIK : MonoBehaviour
 {
-public int Iterations = 10;
-public float Delta = 0.001f;
-public Transform[] joints;//piesele robotului meu
-public Transform Target; //destinatia la care trebuie sa ajunga piesele
+    [Header("Joints")]
+    public ArticulationBody baseRotative;
+    public ArticulationBody shoulder;
+    public ArticulationBody elbow;
 
-private float[] jointLength;//lungimea segmentelor robotului
-private Vector3[] jointPositions;//pozitiile joint-urilor 
+    [Header("Target")]
+    public Transform target;
 
-private float totalLength;
+    [Header("Scala robot in Unity (base_link scale)")]
+    public float robotScale = 5f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public float jointSpeed = 8f;
+
+
+    const float L0 = 84.0f;   // inaltime baza
+    const float L1 = 8.2f;    // offset orizontal
+    const float L2 = 128.0f;  // segment 1
+    const float L3 = 138.0f;  // segment 2
+
+    private float _currentBase;
+    private float _currentShoulder;
+    private float _currentElbow;
+
     void Start()
     {
-
-//calcul distanta dintre puncte        
-int jointCount = joints.Length;
-jointLength = new  float[jointCount - 1];
-jointPositions = new Vector3[jointCount];
-totalLength = 0;
-
-for(int i = 0; i < jointCount - 1; i++)
-        {
-            jointLength[i] = Vector3.Distance(joints[i].position, joints[i+1].position);
-            totalLength+=jointLength[i];
-
-        }
-  for(int i = 0; i < joints.Length ; i++)
-            {
-               jointPositions[i]= joints[i].position;
-
-            }
-        
+        ConfigureJoint(baseRotative, 10000f, 1000f);
+        ConfigureJoint(shoulder,     10000f, 1000f);
+        ConfigureJoint(elbow,        10000f, 1000f);
     }
 
-    // Update is called once per frame
-    void Update()
+    void ConfigureJoint(ArticulationBody joint, float stiffness, float damping)
     {
-        if(Target == null) return;
-    
-//pentru miscare in linie dreapta
+        var drive = joint.xDrive;
+        drive.stiffness = stiffness;
+        drive.damping = damping;
+        drive.forceLimit = float.MaxValue;
+        joint.xDrive = drive;
+    }
 
-          //algoritmul Fabrik pentru celelalte miscari
-           //obtinere pozitii
-            for(int i = 0; i < joints.Length ; i++)
-            {
-               jointPositions[i]= joints[i].position;
+    void FixedUpdate()
+    {
+        if (target == null) return;
+    Debug.Log($"[TARGET] pozitie mondiala: {target.position}");
+    Debug.Log($"[ROBOT] pozitie mondiala: {transform.position}");
 
-            }
+Vector3 robotWorldPos = new Vector3(0f, 1.3f, 0f);
+Vector3 relativePos = target.position - robotWorldPos;
 
-            if ( (Target.position - joints[0].position).sqrMagnitude>=(totalLength*totalLength))
-            {
-          
-                Vector3 direction = (Target.position - joints[0].position).normalized;
-                        for(int i = 0; i < jointLength.Length; i++) 
-                jointPositions[i+1]= jointPositions[i]+direction*jointLength[i];
-        }else
+
+        float scale = robotScale * 0.001f; 
+        float x =  relativePos.x / scale;
+        float y =  relativePos.z / scale;
+        float z =  relativePos.y / scale;
+
+   
+        float baseAngle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
+
+        float r = Mathf.Sqrt(x * x + y * y) - L1;
+
+        float h = z - L0;
+
+        float d2 = r * r + h * h;
+        float d  = Mathf.Sqrt(d2);
+
+        Debug.Log($"[IK] x={x:F0}mm y={y:F0}mm z={z:F0}mm | r={r:F0} h={h:F0} d={d:F0} | max={L2+L3:F0}mm");
+
+        if (d > (L2 + L3) || d < Mathf.Abs(L2 - L3))
         {
-           
-           //Algortimul Fabrik
-            for(int Iteration = 0; Iteration < Iterations; Iteration++)
-           
-             {
-//backward part
-                for(int i = jointPositions.Length - 1;i>0;i--)
-                {
-                    if(i==jointPositions.Length-1)
-                    jointPositions[i] = Target.position;
-                    else
-                    
-                        jointPositions[i]= jointPositions[i+1] + (jointPositions[i]-jointPositions[i+1]).normalized*jointLength[i];
-                    
-                }
-               //forward part
-               jointPositions[0] = joints[0].position;
-               for(int i = 1;i<jointPositions.Length;i++)
-                     jointPositions[i]= jointPositions[i-1] + (jointPositions[i]-jointPositions[i-1]).normalized*jointLength[i-1];
-
-                if((jointPositions[jointPositions.Length-1]-Target.position).sqrMagnitude < Delta*Delta)
-                break;
-
-            }
+            Debug.LogWarning($"[IK] Tinta in afara razei! d={d:F0} trebuie sa fie intre {Mathf.Abs(L2-L3):F0} si {L2+L3:F0}mm");
+            return;
         }
-                
-                
-            
-            
-            //setare pozitii
-            for(int i = 0; i < joints.Length-1; i++)
-            {
-                Vector3 targetDirection = jointPositions[i+1]- jointPositions[i];
-            
-            if(targetDirection != Vector3.zero)
-            {
-           
-           Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, targetDirection);
 
-           joints[joints.Length-1].position = jointPositions[jointPositions.Length-1];
-           
-           joints[joints.Length-1].rotation = Target.rotation;
-            //     if (i == 0)
-            //     {
-            //         Vector3 flatDirection = new Vector3(targetDirection.x, 0 , targetDirection.z);
-            //     joints[i].rotation = Quaternion.LookRotation(flatDirection);
-            //     }
-            //     else
-            //     {
-            //            joints[i].transform.localRotation = Quaternion.FromToRotation(Vector3.down,targetDirection);//pentru a controla directia de mers
-            //     }
 
-            
-            
-            
-            // // joints[i].rotation = targetRotation;
-            // }
-            }
-       
-        
-        
-        }
+        float cosA = Mathf.Clamp((L2*L2 + L3*L3 - d2) / (2*L2*L3), -1f, 1f);
+        float cosB = Mathf.Clamp((L2*L2 + d2 - L3*L3) / (2*L2*d),  -1f, 1f);
+
+        float a = Mathf.Acos(cosA) * Mathf.Rad2Deg;
+        float b = Mathf.Acos(cosB) * Mathf.Rad2Deg;
+        float c = Mathf.Atan2(h, r) * Mathf.Rad2Deg;
+
+        float targetShoulder = 90f - (b + c);
+        float targetElbow    = 90f - a;
+
+        Debug.Log($"[IK] Base={-baseAngle:F1} Shoulder={targetShoulder:F1} Elbow={targetElbow:F1}");
+
+        _currentBase     = Mathf.LerpAngle(_currentBase,     -baseAngle,     Time.fixedDeltaTime * jointSpeed);
+        _currentShoulder = Mathf.LerpAngle(_currentShoulder, targetShoulder, Time.fixedDeltaTime * jointSpeed);
+        _currentElbow    = Mathf.LerpAngle(_currentElbow,    targetElbow,    Time.fixedDeltaTime * jointSpeed);
+
+        SetJointAngle(baseRotative, _currentBase);
+        SetJointAngle(shoulder,     _currentShoulder);
+        SetJointAngle(elbow,        _currentElbow);
+    }
+
+    void SetJointAngle(ArticulationBody joint, float angle)
+    {
+        var drive = joint.xDrive;
+        drive.target = angle;
+        joint.xDrive = drive;
     }
 }
-

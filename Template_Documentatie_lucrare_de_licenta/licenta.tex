@@ -1,0 +1,220 @@
+\documentclass[a4paper,12pt]{report}
+\renewcommand\thesection{\arabic{section}}
+\renewcommand{\contentsname}{Cuprins}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabel}
+\usepackage{amsmath}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{lipsum}  
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{bibliography.bib}
+\setcounter{tocdepth}{6}
+\setcounter{secnumdepth}{6}
+
+\usepackage{url}
+% \usepackage[backend=bibtex,style=numeric,citestyle=numeric,backref=true,sorting=none]{biblatex}
+
+
+\usepackage{indentfirst}
+\usepackage[nobottomtitles*]{titlesec}
+
+\newcommand*{\justifyheading}{\raggedright}
+\titleformat{\section}{\normalfont\Large\justifyheading}{\thesection}{18pt}{}
+
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+
+\usepackage[center]{caption}
+\usepackage{subcaption}
+
+\usepackage[margin=3.9cm]{geometry}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{10}{10}\selectfont\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=2pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\usepackage{pythonhighlight}
+
+\usepackage{fontspec}% -> Schimbat compilator in LuaLatex
+\setmainfont{UTSans-Regular.otf}
+\usepackage{setspace}
+\usepackage{tocloft}
+\setstretch{1} 
+
+\begin{document}
+	
+\include{./cover/cover}
+\include{./cover/innercover}
+
+\newpage
+\setcounter{page}{2}
+% \tableofcontents
+
+\newpage
+\pagenumbering{arabic}
+\renewcommand{\bibname}{Bibliografie}
+\renewcommand\lstlistlistingname{\normalsize{CODURI SURSĂ}}
+\renewcommand{\lstlistingname}{\normalsize{Secvență de Cod}}
+\renewcommand{\listfigurename}{FIGURI}
+\renewcommand{\cftloftitlefont}{\normalsize}
+\renewcommand{\cftfigfont}{\normalsize}
+\renewcommand{\cftfigpagefont}{\normalsize}
+\renewcommand{\listtablename}{TABELE}
+\renewcommand{\cftlottitlefont}{\normalsize}
+\renewcommand{\cfttabfont}{\normalsize}
+\renewcommand{\cfttabpagefont}{\normalsize}
+\tableofcontents
+% acestea sunt actualizate in mod automat, folosind table, figure si lstlisting
+ \clearpage
+ \section*{Lista de figuri, tabele și coduri sursă}
+\addcontentsline{toc}{section}{Lista de figuri, tabele și coduri sursă}
+
+
+ \begingroup
+ \let\clearpage\relax
+ \listoffigures
+ \let\clearpage\relax
+ \listoftables
+ \let\clearpage\relax
+ \lstlistoflistings
+ %\setcounter{page}{5}
+ \endgroup
+
+
+ \clearpage
+
+% % trebuie completata manual
+\section*{Lista de acronime}
+\addcontentsline{toc}{section}{Lista de acronime}
+
+% (se vor scrie toate prescurtările utilizate in ordine alfabetică)
+
+\noindent 
+2D - 2 Dimensiuni;\\
+3D - 3 Dimensiuni; \\
+AR - Augumented Reality;\\
+CAD - Computer Aided Design;\\
+CAE - Computer Aided Engineering;\\
+CAM - Computer Aided Manufacturing;\\
+PPD - Pixel Per Degree;\\
+PPI - Pixel Per Inch;\\
+RGB - Red Green Blue;\\
+%ROS - Robot Operating System;\\
+HMD - Head-Mounted Display; \\
+HZ - Hertz
+IoT - Internet of Things;\\
+MQTT - Message Queuing Telemetry Transport;\\
+OASIS - Organization of Advancement of Structured Information Standard;\\
+SCARA - Selective Compliance Articulated Robot Arm;\\
+UI - User Interface;\\
+URDF - Unified Robotics Description Format;\\
+USB - Universal Serial Bus:\\
+XML - Extensible Markup Language;\\
+XR - Extended Reality;\\
+VR - Virtual Reality;\\
+WIFI - Wireless Fidelity;\\
+
+% \clearpage
+\clearpage
+
+\section{Capitole principale }
+1. Introducere
+  \begin{itemize}
+ 
+       \item  Tema proiectului.
+       \item  Obiectivele și scopul lucrării. 
+ \end{itemize}
+
+
+2. Fundamente teoretice
+  \begin{itemize}
+ 
+       \item  Ce este tehnologia VR
+       \item  Cum se poate interacționa în mediul VR?
+       \item  Despre roboții industriali. 
+        \item De ce este necesară simularea instruirii pe roboții industriali?
+        \item Ce este URDF?
+        \item Ce este MQTT?
+ \end{itemize}
+
+3. Proiectarea în VR
+  \begin{itemize}
+     \item Echipamente folosite(descriere)
+       \item  descriere scenarii antrenament
+       \item  arhitectura aplicației
+       \item mecanisme de interacțiune utilizator-robot
+        \item modelarea robotului/mediului pentru simulare în VR
+ \end{itemize}
+
+4. Implementare
+  \begin{itemize}
+ 
+       \item  creare mediu în VR
+       \item  implementarea comportamentului robotului
+       \item sistem de feedback pentru utilizator
+        \item integrarea elementelor 3D
+ \end{itemize}
+ 
+ 5. Testarea implementării
+
+ 6. Concluzii
+
+\subsection{Obiective principale:}
+  \begin{itemize}
+       \item  modelarea în 3D a robotului.
+       \item  implementare unui scenariu în VR în care utilizatorul poate interacționa cu robotul.
+       \item implementare unui mod de antrenament pe diferite scenarii.
+        \item evaluarea utilității sistemului ca instrument educațional.
+ \end{itemize}
+
+
+\section{Echipamente disponibile:}
+  \subsection{Hardware:}
+  \begin{itemize}
+       \item  robot (MaxArm:)
+       \item  cască VR (Oculus Quest 3s:)
+    
+ \end{itemize}
+
+  \subsection{Software:}
+  \begin{itemize}
+       \item  Unity cu plugin-uri pentru dezvoltare VR.
+       \item  Blender/Fusion 360 pentru modelare în 3D.
+     
+ \end{itemize}
+
+
+\include{./capitole/cap1}
+\include{./capitole/cap2}
+\include{./capitole/cap3}
+\printbibliography[heading=bibintoc,title=Bibliografie momentană]
+\end{document}

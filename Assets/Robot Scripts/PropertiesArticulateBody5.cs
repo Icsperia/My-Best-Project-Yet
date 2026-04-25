@@ -35,7 +35,7 @@ articulationDrive.forceLimit = forceLimit;
 articulationDrive.driveType = ArticulationDriveType.Force;
 articulationBody.xDrive = articulationDrive;
 
-Debug.Log($"[VERIFICARE] Stiffness real în fizică este: {articulationBody.xDrive.stiffness}");
+
     } 
     // Update is called once per frame
     void Update()
