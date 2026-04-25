@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Robotics.UrdfImporter.Control;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 
 
@@ -62,6 +63,8 @@ public class ToggleXRControls : MonoBehaviour
         if (baseRotative == null || moveAction.action == null || bButton == null || bButton.action == null) return;
         Vector2 input = moveAction.action.ReadValue<Vector2>();
 
+        float upDownAngle = upDownSegment.jointPosition[0]*Mathf.Rad2Deg;
+        float veritcalAngle = verticalArm.jointPosition[0]*Mathf.Rad2Deg;
         float horizontal = input.x;
        // float vertical = input.y;
 
@@ -78,27 +81,38 @@ public class ToggleXRControls : MonoBehaviour
             else brControl.direction = RotationDirection.None;
         }
 
-        if (vaControl != null)
+       if (vaControl != null && uDControl != null)
+
+        if (mainTrigger.action.IsPressed())
         {
-            if (mainTrigger.action.IsPressed()) vaControl.direction = RotationDirection.Negative;
-            else if (secondaryTrigger.action.IsPressed()) vaControl.direction = RotationDirection.Positive;
-            else vaControl.direction = RotationDirection.None;
+            vaControl.direction = RotationDirection.Negative;
+            uDControl.direction = RotationDirection.Positive;
+        }
+        else if (secondaryTrigger.action.IsPressed())
+        {
+            vaControl.direction = RotationDirection.Positive;
+            uDControl.direction = RotationDirection.Negative;
         }
 
-
-        if (uDControl != null)
+        else if (bButton.action.IsPressed())
         {
-            if (bButton.action.IsPressed())
-            {
-                uDControl.direction = RotationDirection.Positive;
-            }
-            else if (aButton.action.IsPressed())
-            {
-                uDControl.direction = RotationDirection.Negative;
-            }
-            else uDControl.direction = RotationDirection.None;
-
+            uDControl.direction = RotationDirection.Positive;
+           
+            if (upDownAngle > 7f) vaControl.direction = RotationDirection.Negative;
+            else vaControl.direction = RotationDirection.Positive;
         }
+        else if (aButton.action.IsPressed())
+        {
+            uDControl.direction = RotationDirection.Negative;
+            vaControl.direction = RotationDirection.None; 
+        }
+   
+        else
+        {
+            vaControl.direction = RotationDirection.None;
+            uDControl.direction = RotationDirection.None;
+        }
+    }
 
         // if (pSControl != null)
         // {
@@ -125,4 +139,3 @@ public class ToggleXRControls : MonoBehaviour
 
 
     }
-}

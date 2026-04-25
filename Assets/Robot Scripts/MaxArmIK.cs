@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MaxArmIK : MonoBehaviour
+public class MaxArmIK1 : MonoBehaviour
 {
     [Header("Joints")]
     public ArticulationBody baseRotative;
@@ -13,14 +13,13 @@ public class MaxArmIK : MonoBehaviour
     [Header("Scala robot in Unity (base_link scale)")]
     public float robotScale = 5f;
 
-
+    [Header("IK Settings")]
     public float jointSpeed = 8f;
 
-
-    const float L0 = 84.0f;   // inaltime baza
-    const float L1 = 8.2f;    // offset orizontal
-    const float L2 = 128.0f;  // segment 1
-    const float L3 = 138.0f;  // segment 2
+    const float L0 = 84.0f;
+    const float L1 = 8.2f;
+    const float L2 = 128.0f;
+    const float L3 = 138.0f;
 
     private float _currentBase;
     private float _currentShoulder;
@@ -45,23 +44,20 @@ public class MaxArmIK : MonoBehaviour
     void FixedUpdate()
     {
         if (target == null) return;
-    Debug.Log($"[TARGET] pozitie mondiala: {target.position}");
-    Debug.Log($"[ROBOT] pozitie mondiala: {transform.position}");
 
-Vector3 robotWorldPos = new Vector3(0f, 1.3f, 0f);
-Vector3 relativePos = target.position - robotWorldPos;
+        Debug.Log($"[TARGET] pozitie mondiala: {target.position}");
 
+        Vector3 robotWorldPos = new Vector3(0f, 1.3f, 0f);
+        Vector3 relativePos = target.position - robotWorldPos;
 
-        float scale = robotScale * 0.001f; 
-        float x =  relativePos.x / scale;
-        float y =  relativePos.z / scale;
-        float z =  relativePos.y / scale;
+        float scale = robotScale * 0.001f;
+        float x = relativePos.x / scale;
+        float y = relativePos.z / scale;
+        float z = relativePos.y / scale;
 
-   
         float baseAngle = Mathf.Atan2(x, y) * Mathf.Rad2Deg;
 
         float r = Mathf.Sqrt(x * x + y * y) - L1;
-
         float h = z - L0;
 
         float d2 = r * r + h * h;
@@ -71,10 +67,9 @@ Vector3 relativePos = target.position - robotWorldPos;
 
         if (d > (L2 + L3) || d < Mathf.Abs(L2 - L3))
         {
-            Debug.LogWarning($"[IK] Tinta in afara razei! d={d:F0} trebuie sa fie intre {Mathf.Abs(L2-L3):F0} si {L2+L3:F0}mm");
+            Debug.LogWarning($"[IK] Tinta in afara razei! d={d:F0} trebuie intre {Mathf.Abs(L2-L3):F0} si {L2+L3:F0}mm");
             return;
         }
-
 
         float cosA = Mathf.Clamp((L2*L2 + L3*L3 - d2) / (2*L2*L3), -1f, 1f);
         float cosB = Mathf.Clamp((L2*L2 + d2 - L3*L3) / (2*L2*d),  -1f, 1f);

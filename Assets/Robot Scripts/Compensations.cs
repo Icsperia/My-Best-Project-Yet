@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Utilities.Tweenables.Primitives;
-
+using UnityEngine.InputSystem;
+using Unity.Robotics.UrdfImporter.Control;
 public class Compensations : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -11,6 +12,7 @@ public class Compensations : MonoBehaviour
    public ArticulationBody verticalArm;
 
    public ArticulationBody horizontalSegment1;
+
    
    public float offset1 = 0f;
     public float offset2 = 0f;
@@ -25,6 +27,8 @@ public class Compensations : MonoBehaviour
    
     }
 
+
+
  void FixedUpdate()
      {
         float anglehorizontalArm = horizontalArm .jointPosition[0] * Mathf.Rad2Deg;
@@ -32,8 +36,10 @@ public class Compensations : MonoBehaviour
         float anglePump = pumpSupport1.jointPosition[0]*Mathf.Rad2Deg;
         float angleVertica2 = verticalArm.jointPosition[0] * Mathf.Rad2Deg;
         float angleUpDown = upDownSegment.jointPosition[0] * Mathf.Rad2Deg;
-         float angleUpDown1= upDownSegment.jointPosition[0];
-      
+        float angleUpDown1= upDownSegment.jointPosition[0];
+        JointControl vaControl = verticalArm.GetComponent<JointControl>();
+
+
         if (upDownSegment != null && verticalArm != null && horizontalArm != null)
     {
        

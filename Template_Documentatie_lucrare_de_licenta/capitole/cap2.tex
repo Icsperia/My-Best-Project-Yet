@@ -1,0 +1,173 @@
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand{\contentsname}{Cuprins}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabel}
+
+\setcounter{tocdepth}{6}
+\setcounter{secnumdepth}{6}
+
+
+% \usepackage[backend=bibtex,style=numeric,citestyle=numeric,backref=true,sorting=none]{biblatex}
+
+
+
+
+\titleformat{\section}{\normalfont\Large\justifyheading}{\thesection}{18pt}{}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{10}{10}\selectfont\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=2pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+\setmainfont{UTSans-Regular.otf}
+
+
+
+
+
+\newpage
+
+
+
+\newpage
+\pagenumbering{arabic}
+\renewcommand{\bibname}{Bibliografie}
+\renewcommand\lstlistlistingname{\normalsize{CODURI SURSĂ}}
+\renewcommand{\lstlistingname}{\normalsize{Secvență de Cod}}
+\renewcommand{\listfigurename}{FIGURI}
+\renewcommand{\cftloftitlefont}{\normalsize}
+\renewcommand{\cftfigfont}{\normalsize}
+\renewcommand{\cftfigpagefont}{\normalsize}
+\renewcommand{\listtablename}{TABELE}
+\renewcommand{\cftlottitlefont}{\normalsize}
+\renewcommand{\cfttabfont}{\normalsize}
+\renewcommand{\cfttabpagefont}{\normalsize}
+\clearpage
+
+% % trebuie completata manual
+
+\clearpage
+
+
+
+
+\setcounter{page}{5}
+\section{Fundamente teoretice}
+\subsection{Realitatea virtuală}
+Realitatea virtuală reprezintă un termen care descrie un mediu 3D generat de un calculator care poate fi explorat și se poate interacționa de către un utilizator uman. Acel utilizator devine o parte a mediului virtual sau devine imersive cu mediul și cât timp se află în mediu, poate să manipuleze obiectele sau să performeze o serie de acțiuni.
+
+Realitatea virtuală este implementată folosind sisteme care sunt destinate pentru realizarea mediului, cum sunt căștile, benzile de mers multi-direcționale și mănuși speciale. Aceste sisteme sunt folosite să stimuleze simțurile simultan pentru a crea o iluzie a realității
+
+% un mediu virtual în 3 dimensiuni, generat de calculator în care utilizatorul poate interacționa cu mediul. Accesul la acest mediu este realizat prin intermediul unui calculator care este capabil să afișeze informație 3D prin intermediul unui ecran, care poate fi fie ecrane izolate sau un ecran care poate care pot fi prins de capul utilizatorului împreună cu o serie de senzori folosiți\cite{vr}. 
+
+Această tehnologie poate fi împărțită în 5 tehnologii principale: 
+\begin{itemize}
+	\item Realitatea virtuală non-imersivă se referă la utilizarea unor serii de ecrane care înconjoară utilizatorul pentru ai fi prezentată informația virtuală\cite{vr}.
+	
+	\item Realitatea virtuală semi-imersivă în care componentele digitale se suprapun peste obiectele reale. Astfel aceste elemente virtuale pot fi folosite într-un mod similar cu cele reale \cite{vr3}.
+	
+	\item Realitatea virtuală imersivă, care a fost folosită în acest proiect se folosește de folosirea unui HMD pentru a urmării mișcările utilizatorului și să prezinte informația VR în funcție de mișcările utilizatorului\cite{vr}.
+	
+	\item Realitatea augmentată care reprezintă un alt mod de a realiza realitate virtuală prin modul în care dezvoltatorii suprapun cele ambele realități \cite{vr3}.
+	
+	\item Realitate mixtă combină lumea fizică cu cea virtuală. Reprezintă un caz special de realitate augmentată. Această tehnologie permite vizualizarea de oameni și obiecte într-un context real \cite{vr3}.
+\end{itemize}
+
+
+
+
+
+
+\subsection{MQTT}
+
+MQTT reprezintă un standard  OASIS fiind un protocol de mesagerie folosit în IoT. Este proiectat ca să implementeze protocolul de tip publicare/abonare într-un mod în care să foloseacă cât mai puține resurse. Acest protocol este ideal pentru conectarea între dispozitive, ce sunt limitate din punct de vedere hardware. Comunicarea prin acest protocol este bidirecțională. \cite{MQTT}.
+%ROS reprezintă un set de biblioteci open source software și unelte care sunt folosite în aplicațiile care implică roboți în special controlul componentelor roboților de la un calculator \cite{ros}.
+
+%Un sistem ROS este format dintr-o serie de noduri independente, care comunică între ele folosind un model de mesagerie de tip publicare/abonare \cite{ros}. 
+
+Mesageria de tip publicare/abonare reprezintă un model de comunicare asincron care permite dezvoltatorilor să construiască aplicații funcționale și complexe în cloud. Pentru aceste sisteme cloud modelul de mesagerie oferă notificări instantanee când se întâmplă un eveniment în sistemele distribuite \cite{ps}.
+
+Acest model funcționează în felul următor:
+\begin{itemize}
+	\item Mesajele reprezintă un set de date de comunicație care sunt trimise de la emițător la receptor. Mesajele pot fi de orice tip de dată \cite{ps}
+	\item Topicul care acționează ca un canal intermediar între emițător și receptor. Gestionează o listă de receptori care sunt interesate în mesajele care au același topic \cite{ps}
+	\item Abonații reprezintă destinatarul mesajului. Aceștia trebuie să se înregistreze sau să se aboneze la un topicul care îi interesează. Pot să performenze diferite funcții sau să facă ceva diferit cu mesajul în paralel \cite{ps}
+	\item Publicatorii reprezintă componenta care trimite mesajele. Creează mesaje despre un topic și le trimite pe toate la toți abonații ai acelui topic. Interacțiunea dintre publicator și abonați reprezintă o relație de tipul unul la mulți. Publicatorul nu trebuie să știe cine folosește informația, iar abonații nu trebuie să cunoască proveniența mesajelor, transmisia fiind una de difuzare \cite{ps}
+\end{itemize}
+
+Modelul de mesagerie de tip publicare/abonare reprezintă următoarele avantaje:
+\begin{itemize}
+	\item Eliminarea polling-ului. Topicurile de mesaje care permit transmiterea mesajelor instantaneu eliminând verificările periodice pe care consumatorii mesajlui trebuie să le facă când apare informație nouă sau când este actualizată \cite{ps}.
+	\item Direcționare dinamică. Modelul plubicare/abonat face ca descoperirea serviciilor mai ușor, mai natural, și mai greu susceptibilă la erori. În loc ca aplicația să întrețină un grup de abonați căruia să-i trimită mesajele, un publicator va posta mesajele către un topic specific, astfel încât abonații să se aboneze la mesajele cu topicurile de interes \cite{ps}.
+	\item Simplificarea comunicației. Acest model simplifică procesul de comunicație prin eliminarea conexiunilor punct-la-punct care leagă o singură conexiune către un topic. Topicul va gestiona abonările, astfel încât să decidă ce mesaje sunt destinate cărui endpoint \cite{ps}.
+\end{itemize}
+
+Aceste mesaje pot fi consumate de oricare număr de noduri, incluzând, filtre, sisteme de nivel înalt cum ar fi cele de ghidare \cite{ros}. 
+
+%ROS nu trebuie să fie pe același sistem sau pe aceeași arhitectură. Pot exista simultan componente diferite care să publice mesaje, să se aboneze la mesaje și altele care să controleze componentele. Acestea fac ca ROS să fie flexibil șă să se adapteze la necesitățule aplicației \cite{ros}.
+
+\subsection{URDF}
+URDF este un limbaj markup bazat pe XML, dezvoltat ca parte a ecosistemului ROS. Este folosit în a reprezenta modelul unui robot în raport cu: structura fizică, cinematica, proprietățile legate de inerție, aspectul fizual și geometria coliziunilor \cite{urdf}.
+
+Un fișier definește un robot ca o colecție de legături (corpuri rigide), conectate prin articulații (care definește cum legăturile se pot mișca între ele). De asemenea poate specifica senzori, transmisii și materiale, permițând simularea și vizualizarea robotului în mediul 3D \cite{urdf}.
+
+URDF servește ca o componentă esențială în controlul prin:
+\begin{itemize}
+	\item Simulare: Modelele URDF sunt folosite pentru a încărca roboții în simulatoare cum este Gazebo, sau medii de dezvoltare 3D cum este Unity, unde dezvoltatorii testează algoritmi în medii de dezvoltare virtuale controlate înainte să fie încărcate pe hardware. URDF se asigură că constrângerile fizice și reprezentările vizuale se aseamănă cu cele din lumea reală \cite{urdf}.
+	\item Cinematica și planificarea mișcărilor. Este necesară pentru a ajuta la înțelegerea limitelor articulațiilor și ierarhiei dintre legături și coordonatele componentelor. Acestea permit planificarea mișcărilor cu acuratețe și calculului cinematicii inverse și directe \cite{urdf}.
+	\item Vizualizare și Debbuging. URDF este folosit pentru a randa vizualizări 3D ale robotului în timp real. Se pot suprapune datele de la senzori pe model, ceea ce face mai ușor înțelegerea comportamentului sistemului și debugging-ul \cite{urdf}.
+	\item Integrarea cu senzori. URDF permite poziționarea cu precizie a cadrelor și a pozițiilor senzorilor pe robot. Modelarea acestora cu acuratețe este esențială pentru combinarea senzorilor și a navigației \cite{urdf}.
+\end{itemize}
+
+
+\subsection{Roboții industriali}
+Roboții industriali sunt folosiți în procese de asamblare, curățare și celelalte activități din fabrici unde oamenii nu pot opera. Automatizarea fiecărui proces îmbunătățește eficiența și contribuie la reducerea lipsei forței de muncă și al costurilor \cite{ri}.
+
+Roboții industriali se împart în 6 tipuri:
+\begin{itemize}
+	\item Roboți liniari. Aceștia sunt asemănători în  aspect cu o macara de tip pod cu 3 axe de mișcare, are o capacitate de mutare de obiecte și acuratețe ridicată. Axele acestui robot sunt perpendiculare între ele și robotul se mișcă cu axele în linie dreaptă \cite{ri1}.
+	\item Roboți cilindrici. Aceștia sunt roboți pe 3 axe cu zone de lucru sub formă de cilindri, 2 axe ale robotului se mișcă linear, iar cel de al 3 lea se mișcă circular \cite{ri1}.
+	\item Roboți sferici. Aceștia au sistem de coordonate polare. Au 2 axe de rotație și o axă lineară.
+	\item Roboți SCARA. Sunt roboți de mare precizie și viteză ce au 4 axe de mișcare. Încheieturile roboților se mișcă pe un plan orizontal împreună cu alte 3 axe, și o altă componentă se mișcă sus și jos împreună cu cea de a 4 a axă \cite{ri1}.
+	\item Roboți articulați. Sunt roboți pe 6 axe compuse din încheieturi conectate secvențial, care copiază aspectul unei mâini umane. Cele 6 axe oferă robotului flexibilitate și le permite axelor să ajungă în zone în care ceilalți nu pot \cite{ri1}.
+	\item Robot delta. Sunt roboți ce au 3 mânere atașate de o bază și care țin componenta de lucru a robotului paralelă cu baza. Aceștia pot avea 3, 4 și 6 axe de mișcare. Varianta cu 3 axe poate muta obiectele pe planuri paralele, și variantele cu un număr mai mare de axe sunt capabil să rotească obiecte și să manipuleze obiecte din părți diferite \cite{ri1}.
+\end{itemize}
+
+
+% URDF reprezintă un fișier de tip XML care include descrierea fizică a robotului. Este în principiu un model 3D ce conține informații despre încheieturile robotului, motoare, greutate. 
+
+% Fișierele sunt folosite în ROS, iar informațiile acestora informează operatorul uman despre aspectul, dimensiunea și capabilitățile robotului și capabilitățile acestuia înainte să înceapă să folosească robotul.
+
+% Pe lângă cele mai de sus fișierele URDF mai sunt folosite în testarea comportamentală a roboților, până să fie puși în funcționare, ori pentru crearea de dubluri digitale folosirea în virtualizarea stării în timp real al robotului.
+
+
+% \nocite{*}
+
+

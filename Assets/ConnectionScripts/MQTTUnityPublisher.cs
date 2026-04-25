@@ -10,15 +10,15 @@ public class MQTTUnityPublisher : MonoBehaviour
     public ArticulationBody verticalArm;
     public ArticulationBody upDownSegment;
 
-    public string brokerIp = "10.206.197.112";
+    public string brokerIp = "10.104.183.112";
     public int brokerPort = 1883;
 
     private IMqttClient mqttClient;
     
-    [Header("Setari Miscare")]
-    public float sensitivity = 500f; // Ajusteaza viteza de raspuns
-    public float publishDelay = 0.05f; // 20 mesaje pe secunda
-    public int deadzone = 1; // Ignora miscari ultra-mici
+
+    public float sensitivity = 500f; 
+    public float publishDelay = 0.05f; 
+    public int deadzone = 1; 
 
     private float lastRawX, lastRawY, lastRawZ;
     private float nextPublishTime;
@@ -51,7 +51,7 @@ public class MQTTUnityPublisher : MonoBehaviour
             .Build();
 
         await mqttClient.ConnectAsync(options);
-        Debug.Log("MQTT: Conectat la Broker pentru miscari RELATIVE");
+        Debug.Log("Conectat la Broker MQTT");
     }
 
     async Task SendRelativeData()

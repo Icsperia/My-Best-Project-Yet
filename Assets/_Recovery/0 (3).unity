@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a68d7753bea39048b79b7b11c953d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Subscriber
-  brokerIp: 10.104.183.112
+  brokerIp: 10.206.197.112
   brokerPort: 1883
   topic: robot/coodonateBazaRotativa
 --- !u!4 &54022488
@@ -1148,12 +1148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383cd15445beaf64c99138777eab71d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InverseKinematic
-  baseRotative: {fileID: 0}
-  shoulder: {fileID: 0}
-  elbow: {fileID: 0}
-  target: {fileID: 0}
-  robotScale: 5
-  jointSpeed: 5
+  Iterations: 10
+  Delta: 0.001
+  joints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Target: {fileID: 904206026}
 --- !u!4 &217772256
 Transform:
   m_ObjectHideFlags: 0
@@ -1666,7 +1670,7 @@ MonoBehaviour:
   upperLimit: 11
   lowerLimit: -11
   maxVelocityLimit: 100000
-  speed: 100
+  speed: 50
   acceleration: 1000
 --- !u!114 &328962978
 MonoBehaviour:
@@ -1681,7 +1685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::JointControl
   direction: 0
-  speed: 200
+  speed: 70
   joint: {fileID: 328962975}
   controltype: 0
 --- !u!1 &335179275
@@ -1809,12 +1813,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383cd15445beaf64c99138777eab71d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InverseKinematic
-  baseRotative: {fileID: 0}
-  shoulder: {fileID: 0}
-  elbow: {fileID: 0}
-  target: {fileID: 0}
-  robotScale: 5
-  jointSpeed: 5
+  Iterations: 10
+  Delta: 0.001
+  joints: []
+  Target: {fileID: 0}
 --- !u!1 &348567000
 GameObject:
   m_ObjectHideFlags: 8
@@ -2109,7 +2111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &380563285
 Transform:
   m_ObjectHideFlags: 0
@@ -2759,8 +2761,6 @@ GameObject:
   - component: {fileID: 531199632}
   - component: {fileID: 531199634}
   - component: {fileID: 531199635}
-  - component: {fileID: 531199637}
-  - component: {fileID: 531199638}
   m_Layer: 0
   m_Name: maxarmv2.2
   m_TagString: robot
@@ -2842,8 +2842,8 @@ MonoBehaviour:
   offset2: 0
   offset: 0
   pumpOffset: 0
-  leaningIntensity: 0
-  leaningIntensityPump: 0
+  leaningIntensity: -1.1
+  leaningIntensityPump: -1.1
 --- !u!114 &531199634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531199628}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 929d7581b42dbd14d84cd31704ffe03b, type: 3}
   m_Name: 
@@ -2897,40 +2897,6 @@ MonoBehaviour:
   mainTrigger: {fileID: 8836625431948561128, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   secondaryTrigger: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   pumpSupport2: {fileID: 399558001}
---- !u!114 &531199637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531199628}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c8bb2ed4052efe40bd26b4fe21543e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IKDebug
-  baseRotative: {fileID: 328962975}
-  shoulder: {fileID: 1979754405}
-  elbow: {fileID: 803675112}
-  target: {fileID: 0}
---- !u!114 &531199638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531199628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8038494dc49913a4c917e69cf7a98cd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MaxArmIK1
-  baseRotative: {fileID: 328962975}
-  shoulder: {fileID: 1979754405}
-  elbow: {fileID: 803675112}
-  target: {fileID: 885135933}
-  robotScale: 5
-  jointSpeed: 200
 --- !u!1 &566558683
 GameObject:
   m_ObjectHideFlags: 8
@@ -4218,7 +4184,7 @@ MonoBehaviour:
   stiffness: 10000
   damping: 1000
   limit: 10000
-  upperLimit: 45
+  upperLimit: 60
   lowerLimit: 0
 --- !u!114 &803675115
 MonoBehaviour:
@@ -4233,7 +4199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::JointControl
   direction: 0
-  speed: 200
+  speed: 60
   joint: {fileID: 803675112}
   controltype: 0
 --- !u!1001 &816907077
@@ -4482,206 +4448,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &885135929
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 885135933}
-  - component: {fileID: 885135932}
-  - component: {fileID: 885135931}
-  - component: {fileID: 885135930}
-  - component: {fileID: 885135934}
-  m_Layer: 0
-  m_Name: Target
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &885135930
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885135929}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &885135931
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885135929}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &885135932
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885135929}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &885135933
+--- !u!4 &904206026 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+  m_PrefabInstance: {fileID: 2023296520}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885135929}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.416, y: 2.94, z: 0.05}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &885135934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885135929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4484e1e195d460b42bb2170af057ec0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IKTargetController1
-  leftAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Left
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: b575f17c-9d55-4892-acff-78d8b7524cba
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 7376770234061326826, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  rightAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Right
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 790f4d3c-bd76-41c0-903c-3c0a8beeb143
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -1311650348824315396, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  forwardAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Forward
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 13d21f96-8918-44d4-9c93-757f1929fd60
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5124856829409830267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  backAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Back
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: cf72c9b3-def4-4a02-b432-5dc06e45d3a3
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2543531381401213949, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  upAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Up
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 71fe2d08-44b0-4ecb-9dee-d9b74973d474
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 8836625431948561128, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  downAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Down
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 625c6370-46b1-4eba-bcd7-723e2abbd9a6
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  moveSpeed: 0.5
-  minBounds: {x: -2, y: 1, z: -2}
-  maxBounds: {x: 2, y: 3, z: 2}
 --- !u!1 &910096603
 GameObject:
   m_ObjectHideFlags: 8
@@ -6111,7 +5882,7 @@ MonoBehaviour:
   damping: 1000
   limit: 10000
   upperLimit: 0
-  lowerLimit: -30
+  lowerLimit: -60
 --- !u!1 &1351410690
 GameObject:
   m_ObjectHideFlags: 0
@@ -6463,9 +6234,9 @@ MonoBehaviour:
   rotativeBase: {fileID: 328962975}
   verticalArm: {fileID: 1979754405}
   upDownSegment: {fileID: 803675112}
-  brokerIp: 10.104.183.112
+  brokerIp: 10.206.197.112
   brokerPort: 1883
-  sensitivity: 250
+  sensitivity: 500
   publishDelay: 0.05
   deadzone: 1
 --- !u!4 &1452340064
@@ -8256,8 +8027,8 @@ MonoBehaviour:
   stiffness: 10000
   damping: 1000
   limit: 10000
-  upperLimit: 80
-  lowerLimit: -80
+  upperLimit: 0
+  lowerLimit: -60
 --- !u!114 &1979754408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8271,7 +8042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::JointControl
   direction: 0
-  speed: 200
+  speed: 10
   joint: {fileID: 1979754405}
   controltype: 0
 --- !u!1 &1984428571 stripped
@@ -8703,6 +8474,79 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1001 &2023296520
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -5178661895559278292, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -39870243276581033, guid: cec1aebf75b74914097378398b58a48e, type: 3}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.029
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.329
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.21
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
+      propertyPath: m_Name
+      value: Target
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 080ad8ef2223242198a30df487d9bcbb, type: 3}
 --- !u!1001 &2029636295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8807,6 +8651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2046212918}
   - component: {fileID: 2046212919}
+  - component: {fileID: 2046212920}
   m_Layer: 0
   m_Name: unnamed
   m_TagString: Untagged
@@ -8843,6 +8688,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::Unity.Robotics.UrdfImporter.UrdfCollision
   geometryType: 3
+--- !u!65 &2046212920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046212917}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2046629158
 GameObject:
   m_ObjectHideFlags: 0
@@ -10205,6 +10071,7 @@ SceneRoots:
   - {fileID: 1825945902}
   - {fileID: 796427102}
   - {fileID: 370974680}
+  - {fileID: 2023296520}
   - {fileID: 217772256}
   - {fileID: 51402343}
   - {fileID: 388070646}
@@ -10212,4 +10079,3 @@ SceneRoots:
   - {fileID: 1452340064}
   - {fileID: 54022488}
   - {fileID: 1502064510}
-  - {fileID: 885135933}
