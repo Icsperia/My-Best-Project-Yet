@@ -11,6 +11,7 @@ class esp32MQTTSubscriber:
             self.fbaseAngle = 0.0
             self.verticalArmAngle=0.0
             self.upDownAngle=0.0
+            self.armIniPos = 0.0
             
         
         
@@ -19,17 +20,28 @@ class esp32MQTTSubscriber:
                 self.client.set_callback(self.CallBack)
         def CallBack(self, topic, msg):
             try:
-            
-                    try:
-                        self.fbaseAngle = float(msg.decode())
-                        self.verticalArmAngle= float(msg.decode())
-                        
-                    except ValueError:
+        
+                topic_str = topic.decode()
+      
+                msg_str = int(float(msg.decode()))
+        
+       
                 
-                        print("Eroare: Mesajul nu poate fi convertit în float.")
-                
+        
+                msgReceived = float(msg_str)
+        
+                if topic_str == "rotativeBase/topic":
+                    self.fbaseAngle = msgReceived 
+                elif topic_str == "verticalArm/topic":
+                    self.verticalArmAngle = msgReceived 
+                elif topic_str == "upDownSegment/topic":
+                    self.upDownAngle = msgReceived 
+                elif topic.str == "armHome/topic":
+                      self.armIniPos = msgReceived
+
+            except ValueError:
+                print("Eroare conversie float: Nu pot converti '{}'")
             except Exception as e:
-                
                 print("Eroare neprevăzută în CallBack:", e)
           
                       
@@ -63,4 +75,5 @@ class esp32MQTTSubscriber:
 
                
                
+
 

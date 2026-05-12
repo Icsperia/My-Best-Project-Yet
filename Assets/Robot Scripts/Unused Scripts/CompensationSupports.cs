@@ -38,28 +38,6 @@ public class CompensationSupports : MonoBehaviour
        vertical1.xDrive = vertical1Drive;
 
  
-    
-    //     if (upDownSegment != null && verticalArm != null && horizontalArm != null)
-    // {
-       
-
-    //     var driveH = horizontalSegment1.xDrive;
-
-    //     float totalBaseAngle = -(upDownAngle + verticalArmAngle);
-
-   
-    //    // if (angleVertical > 0)
-    //    // {
-            
-    //       // driveH.target = totalBaseAngle   -angleVertical ;
-    //    // }
-    //    // else
-    //    // {
-    //        driveH.target = totalBaseAngle ;
-    //    // }
-
-    //    horizontalSegment1.xDrive = driveH;
-    // }
 
     //////////////////////////////
       
@@ -67,20 +45,10 @@ public class CompensationSupports : MonoBehaviour
     //////////////////////////////////
    CompensationPositive(verticalArm, horizontalSegment2, 0f);
    
-// var horizontalSegment2Drive = horizontalSegment2.xDrive;
-// horizontalSegment2Drive.target = verticalArmAngle-pumpSupportAngle-horizontalArmAngle;
-// horizontalSegment2.xDrive =horizontalSegment2Drive;
+
   CompensationNegative(upDownSegment,horizontalSegment1);
 
-// var horizontalSegment1Drive = horizontalSegment1.xDrive;
-// horizontalSegment1Drive.target = upDownAngle+pumpSupportAngle;
-// horizontalSegment1.xDrive =horizontalSegment1Drive;
 
-//  Debug.Log("verticalArmAngle"+verticalArmAngle);
-//  Debug.Log("pumpSupportAngle"+pumpSupportAngle);
-//  Debug.Log("horizontalArmAngle"+horizontalArmAngle);
-//  Debug.Log("horizontalSegemnt1Angle"+horizontalSegemnt1Angle);
-//  Debug.Log("horizontalSegemnt2Angle"+horizontalSegemnt2Angle);
 
     }
 

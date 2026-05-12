@@ -1,0 +1,262 @@
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand{\contentsname}{Cuprins}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabel}
+
+\setcounter{tocdepth}{6}
+\setcounter{secnumdepth}{6}
+
+
+% \usepackage[backend=bibtex,style=numeric,citestyle=numeric,backref=true,sorting=none]{biblatex}
+
+
+
+
+\titleformat{\section}{\normalfont\Large\justifyheading}{\thesection}{18pt}{}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{10}{10}\selectfont\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=2pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+
+\setmainfont{UTSans-Regular.otf}
+
+
+
+
+
+\newpage
+
+
+
+\newpage
+\pagenumbering{arabic}
+\renewcommand{\bibname}{Bibliografie}
+\renewcommand\lstlistlistingname{\normalsize{CODURI SURSĂ}}
+\renewcommand{\lstlistingname}{\normalsize{Secvență de Cod}}
+\renewcommand{\listfigurename}{FIGURI}
+\renewcommand{\cftloftitlefont}{\normalsize}
+\renewcommand{\cftfigfont}{\normalsize}
+\renewcommand{\cftfigpagefont}{\normalsize}
+\renewcommand{\listtablename}{TABELE}
+\renewcommand{\cftlottitlefont}{\normalsize}
+\renewcommand{\cfttabfont}{\normalsize}
+\renewcommand{\cfttabpagefont}{\normalsize}
+\clearpage
+
+% % trebuie completata manual
+
+
+
+
+
+\setcounter{page}{13}
+
+
+\section{Pașii de implementări}
+Pentru a putea crea un geamăn digital pentru brațul robotic a trebuit realizate următorii pași:
+
+\begin{itemize}
+	\item Pentru primul pas a fost necesar crearea modelului 3D al brațului
+	\item Al doilea pas a fost exportarea modelului 3D din Fusion în format de fișier URDF și importare în Unity
+	\item Al treilea pas după impotare a fost setarea valorilor de amortizare, frecare, și limitele superioare și inferioare.
+	\item Al patrulea pas a constat în aplicarea de constrângeri între componente în jurul motoarelor.
+	\item Al cincilea pas după constrângeri a fost crearea sistemului de control
+	\item Al saselea pas a constat în transmiterea datelor provenite de la robotul din Unity la robotul real
+	\item Al saptelea pas a constat în aplicarea valorilor primite asupra motoarelor și realizarea de modificări ulterioare.
+\end{itemize}
+
+
+
+
+
+ 
+
+
+
+%. Pentru acesta s-a folosit noul sistem pentru intrări de la Unity și sistemul de control al încheieturilor din biblioteca de URDF.
+
+%. Pentru comunicare s-a folosit protocolul MQTT.
+
+
+
+În capitolele ce urmează vor fi detaliate implementările pașilor.
+
+
+\section{Realizarea modelului 3D și importarea în UNITY}
+
+\subsection{Realizarea modelului 3D}
+Pentru primul pas a fost necesar crearea modelului 	3D al brațului. Ca aplicație de modelare a fost folosit FUSION 360. Aceaastă aplicație față de alternative, cum ar fi Blender, este mai ușor de învățat și implementat, și fiind program ce implementează desen tehnic este ideală pentru obiectele ce necesită precizie pentru desenare și modelare.
+
+Pentru a începe procesul de modelare mai întâi a fost necesară măsurarea dimensiunilor pe componente ale brațului. Pentru aflarea dimensiuni componentelor robotului a fost folosită o riglă, deoarece producătorul nu a oferit schematice 2D ale componentelor și nu s-a avut acces la unelte de măsură de precizie pentru lungimi, unghiuri și diametrele cercurilor.
+
+Astfel s-au au fost obținute următoarele valori pentru fiecare componentă:
+\clearpage
+\begin{itemize}
+	\item Baza robotului:
+	\item Zona rotativă:
+	\item Bratul vertical principal
+	\item Bratul orizontal principal
+	\item Segment lateral de urcare-coborâre braț principal
+	\item Tijă de susținere verticală 1
+	\item Tijă de susținere verticală 2
+	\item Tijă orizontală de susținere 1
+	\item Tijă orizontală de susținere 2
+	\item Prindere pompă de subțiune
+	\item Pompa de subțiune
+	
+\end{itemize}
+
+
+Modelul final al robotului arată astfel:
+
+\begin{figure}[h]
+	\centerline{
+		\includegraphics[width=0.7\textwidth]{Modelul 3D.png}}
+	\caption[(Model 3D)]{Modelul 3D al brațului MaxArm}
+	\label{fig:top}
+\end{figure}
+
+Imaginea de mai sus prezintă modelul 3D al brațului robotic complet. Pentru prinderea componentelor și stabilirea structurii de arbore au fost folosite Joint-urile din cadrul aplicației FUSION, fiind folosite predominant cele care au rotația de revoluție adică de rotație de 360 de grade. Aceste joint-uri cum se poate observa în figura de mai sus sunt marcate ca cercuri care au stegulețe, orientarea stegulețelor marcând punctul de pornire al mișcării de rotație.
+
+După ce au fost prinse componentele și stabilite sensurile de rotație, a fost necesară convertirea din modelul 3D în fișier URDF. Pentru această convertire s-a folosit de un script care analizează începând de la un baza principală a robotului până la ultimul Joint. Pentru ca scriptul să poată face conversia sunt necesare următoarele condiții:
+\begin{itemize}
+	\item Robotul să aibă structură de arbore 
+	\item O componentă să fie controlată doar de un singur Joint
+\end{itemize}
+
+După ce aceste condiții au fost imdeplinite, scriptul generează un fișier ce are structura următoare:
+
+Pseudo cod fisier URDF de făcut (dacă este necesar)
+%. Pentru exportare s-a folosit un plugin cu care se face exportul, însă ca modelul să poată fi exportat fără erori trebuie ca între componente să fie ierarhie de tip arbore, adică să nu fie buclă închisă. Unity a fost ales pentru mediul de implmentare al geamănului deoarece dispune de toate componentele și instrumentele necesare implementării și de o documentație solidă. Pentru importarea în Unity s-a folosit un set de bilbioteci dezvoltate pentru lucrul cu fișiere URDF.
+Fișier URDF conține descrierea structurală a robotului cu Joint-urile și relațiile între componente. Cu acest fișier generat se poate importa robotul în Unity. 
+
+\subsection{Importarea în Unity}
+Importarea s-a realizat prin folosirea pachetului URDF din Unity care preia structura și ierarhia din fișierul URDF generat anterior, le analizează, o importează în Unity și generează fișierele de textură fiecărei componente.
+
+Pe lângă import și texturi pachetul atribuie fiecărei componente un corp de tip articulation, scripturile de definire al tipului de joint, de control al joint-ului și de parametri fizici. Problema cu sciptul este că deși generează fișierele de textură, acesta nu aplică texturile pe componente, acestea trebui să fie aplicate manual la fiecare import.
+
+\clearpage
+Structura  ierarhică a componentelor:
+
+\begin{figure}[h]
+	\centerline{
+		\includegraphics[width=0.7\textwidth]{Structura ierarhica Unity.png}}
+	\caption[(Structura ierarhica Unity)]{Structura ierarhica în Unity al brațului robotic}
+	\label{fig:top}
+\end{figure}
+
+\begin{figure}[h]
+	\centerline{
+	\includegraphics[width=0.7\textwidth]{Modelul 3D importat .png}}
+	\caption[(Modelul 3D din Unity)]{Modelul 3D exportat în Unity al brațului robotic}
+	\label{fig:top}
+\end{figure}
+
+
+Având structura robotului și modelul 3D importat, aplicate texturile și verificare ca pentru fiecare componentă să aibă tipul necesar de body și script-urile de control necesare, s-a putut trece la setarea proprietăților brațului și setarea constrângerilor între componente.
+
+\clearpage
+
+\section {Implementarea în Unity, setare proprietăți și constrângeri de mișcare}
+\subsection{Setarea prorprietăților}
+
+Setarea proprietăților constă în alegerea valorilor pentru rigiditatea, amortizarea și forța limită pentru ca componentele. Realizarea acestor setări a fost necesară deoarece:
+
+\begin{itemize}
+	\item Rigiditatea reprezintă forța cu care care articulația ajunge la țintă. Dacă are valoarea de 0 sau valori mici de exemplu sub 10000, atunci articulația nu se mișcă, sau face mișcări lente.
+	\item Amortizarea reprezintă proprietatea care ajută la diminuarea/oprirea tremurațiilor brațului. Dacă are valoarea de 0 sau valori mice, de exemplu sub 100, atunci la fiecare mișcare a articulației aceasta ar începe să tremure ducând la instabilitate și probleme la fizica robotului, cum ar fi desprinderea și împrăștierea componentelor brațului.
+	\item Forța limită pe care motoarele/articulațiile ua nevoie pentru a putea fi acționa. La valori mici, de exemplu sub 1000 motoarele brațului n-ar avea forța necesară să se miște.
+	\end{itemize}
+
+De aceea au fost alese aceste valori pentru setarea proprietăților:
+\begin{itemize}
+	\item Rigiditatea 100000
+	\item Amortizarea 1000
+	\item Forța limită 10000
+\end{itemize}
+
+Pentru aplicarea acestor valori există 2 abordări principale:
+Prima abordare constă în aplicarea  acestor valori direct în proprietățile articulației. Însă pentru această abordare există o problemă: valorile puteau să fie aplicate numai în momentul în care scena se află 
+în modul de play. După ce se iese din modul de play valorile revin la cele inițiale. Astfel pentru această abordare ,de fiecare dată când trebuia testată mișcarea unei componente sau ale unui set de componente trebuia aplicate valorile de fiecare dată.
+
+A doua abordare a fost și cea păstrată și implementată și consta în crearea de scripturi separate pentru fiecare componentă care să suprascrie mereu valorile. Astfel chiar dacă scena se află în modul de lucru, acest script se executa ultimul suprasciind valorile din secțiunea de proprietăți ale articulației. 
+
+Pentru realizarea scripturilor a fost necesară, definirea unui obiect de tip articulation body prin care să se acceseze aceste proprietăți care se află sub categoria de Drive a componentei. După ce a fost accesate aceste proprietăți și setate valorile trebuia scrise înapoi în Drive.
+
+După setarea acestor valori, pe urmă a fost necesară setarea de constrângeri de mișcare pe componente.
+
+\subsubsection{Constrângeri de mișcare}
+
+Constrângerile de mișcare reprezintă condiționarea mișcării unor componente față de alte componente. Constrângerile sunt de 2 tipuri:
+\begin{itemize}
+	\item simple, în care o componentă are unghiul de deplasare în același sens de componenta care îi condiționează mișcarea sau în sens opus acesteia
+	\item compuse, în care unghiul de deplasare al unei componente este condiționate de minim 2 componente
+\end{itemize}
+
+Implementarea acestor constrângeri a fost necesară deoarece brațul robotic are în structura sa tije de susținere, susținere pentru pompă care fie trebuie să rămână într-o poziție fixă, cum e în cazul susținerii pentru pompă care trebuie să rămână perfect verticală indiferent de deplasarea brațelor, sau în cazul tijelor de susținere să se deplaseze pe aceeași direcție cu segmentul vertical principal. O altă necesitate pentru aceste constrângeri a venit din cauză ca să se mențină structura de arbore a robotului. Astfel tijele și suportul de pompă au fost prinse numai de un singur Joint. Dacă erau prinse de 2 apărea un conflict deoarece nu se știe care joint este prioritar și astfel bloca întreaga piesă.
+
+Astfel pentru setarea acestor constrângeri a fost necesară accesarea Drive al articulației, și accesarea proprietății de poziție a jointului în grade. După setarea acestor poziției a fost necesară aplicarea proprietății.
+
+Constrângerile au fost grupate în 2 părți: constrângeri pentru tijele de susținere și constrângeri pentru segmentele principale.
+
+Pentru tijele de suștinere, constrângerile au fost setate astfel:
+\begin{itemize}
+	\item tija verticală de susținere 2 se va deplasa în sensul segmentului vertical principal
+	\item tija orizontală de susținere 2 se va deplasa tot în același sens cu segmentul vertical principal
+	\item tija orizontală de susținere 1 se va deplasa în sens opus cu segmentul care deplasează segmentul orizontal principal pe axa Y
+	\item tija verticală de susținere 1 se va deplasa în sens opus cu suma unghiurilor segmentul care deplasează brațul orizontal pe verticală și a segmentului vertical principal
+\end{itemize}
+
+În cadrul segmentelor principale a fost necesară setarea de constrângeri pentru segmentul orizontal principal deoarece când se deplasa segemntul vertical principal, acesta deplasându-se pe axa Z, acesta îi urmărea unghiul fiind necesar ca  segmentul orizontal principal să-și păstreze poziția orizontală pe toată durata mișcării segemntul vertical principal. 
+
+Tot în categoria segmentelor principale a fost necesară și setarea de constrângeri pe suportul de pompă deoarece indiferent de sensul de deplasare al segmentelor principale, acesta trebuie să rămână perfect vertical.
+
+Astfel pentru segmentul orizontal principal și suportul pompei, au fost setate următoarele constrângeri:
+\begin{itemize}
+	\item segmentul orizontal principal se va deplasa în sens opus cu suma unghiurilor segmentului vertical principal și segmentul care deplasează  segmentul orizontal principal pe axa Y
+	\item suportul pompei are următoarea constrângere: (2* unghiul tijei orizontale 1) - unghiul segmentului orizontal principal - unghiul segmentului vertical principal.
+\end{itemize}
+
+S-a ajuns la setarea acestor constrângeri pe baza observațiile sensurilor de deplasare atât în Unity, cât și în Fusion.
+
+\section{Sistemul de control al brațului în Unity}
+\section {Comunicarea între brațul real și brațul virtual}
+\section {Controlul motoarelor brațului real cu cel din virtual}
+\section {Dificultăți în realizarea proiectului}
+\section {Rezultate}
+Principalele rezultate experimentale din cadrul proiectului sunt:
+\begin{itemize}
+	\item Implementarea în Unity a robotului, cu constrângeri
+	\item Implementarea controalelor din manete pentru robotul din unity atât cu direcția de deplasare provenită de la butoane, cât și prin folosirea unui algoritm de cinematică inversă
+	\item Transmiterea și transformarea valorilor de la robotul virtual pentru a putea controla mototarele roobtului real
+	\
+	\end{itemize}
+

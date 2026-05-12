@@ -3,12 +3,15 @@ using MQTTnet;
 using MQTTnet.Client;
 using System.Threading.Tasks;
 using System;
+using UnityEngine.InputSystem;
 
 public class MQTTUnityPublisher : MonoBehaviour
 {
     public ArticulationBody rotativeBase;
     public ArticulationBody verticalArm;
     public ArticulationBody upDownSegment;
+
+    public InputActionReference xButton;
 
     public string brokerIp = "10.104.183.112";
     public int brokerPort = 1883;
@@ -23,6 +26,12 @@ public class MQTTUnityPublisher : MonoBehaviour
     private float lastRawX, lastRawY, lastRawZ;
     private float nextPublishTime;
 
+
+  void   OnEnable()
+    {
+        if(xButton.action!=null)
+        xButton.action.Enable();
+    }
     async void Start()
     {
         await ConnectToBroker();
@@ -34,10 +43,21 @@ public class MQTTUnityPublisher : MonoBehaviour
 
     async void Update()
     {
+
+            
+        bool isButtonPressed = xButton.action.ReadValue<float>() > 0.1f;
+      
         if (mqttClient != null && mqttClient.IsConnected && Time.time >= nextPublishTime)
         {
+        
+           
             nextPublishTime = Time.time + publishDelay;
             await SendRelativeData();
+            if (isButtonPressed)
+            {
+                await SendBoolValues();
+            }       
+            
         }
     }
 
@@ -84,8 +104,25 @@ public class MQTTUnityPublisher : MonoBehaviour
             await PublishInt("upDownSegment/topic", deltaZ);
             lastRawZ = curZ;
         }
+
+    
+   
     }
 
+    async Task SendBoolValues()
+    {
+            if(xButton.action != null)
+
+        {
+        
+        float buttonValue = xButton.action.ReadValue<float>();
+        await PublishFloat("armHome/topic", buttonValue);
+        Debug.Log(buttonValue );
+            
+   
+        }
+
+    }
     async Task PublishInt(string topic, int value)
     {
         var message = new MqttApplicationMessageBuilder()
@@ -94,4 +131,15 @@ public class MQTTUnityPublisher : MonoBehaviour
             .Build();
         await mqttClient.PublishAsync(message);
     }
+
+   
+      async Task PublishFloat(string topic, float value)
+    {
+        var message = new MqttApplicationMessageBuilder()
+            .WithTopic(topic)
+            .WithPayload(value.ToString())
+            .Build();
+        await mqttClient.PublishAsync(message);
+    }
+
 }

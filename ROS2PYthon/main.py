@@ -53,6 +53,7 @@ MQTTEspSubs.connectToBroker()
 MQTTEspSubs.sub("rotativeBase/topic")
 MQTTEspSubs.sub("verticalArm/topic")
 MQTTEspSubs.sub("upDownSegment/topic")
+MQTTEspSubs.sub("armHome/topic")
 #MQTTEsp.connectToBroker()
 #/////////////////////////
 arm.go_home()
@@ -253,40 +254,77 @@ while True:
     xDelta = MQTTEspSubs.fbaseAngle
     yDelta = MQTTEspSubs.verticalArmAngle
     zDelta = MQTTEspSubs.upDownAngle
+    armInitPos = MQTTEspSubs.armIniPos
 
-  
+   
+                
+
     if time.ticks_ms() >= move_sleep:
+        if(armInitPos>0.5):
+
+            arm.go_home(1000)
+            (x, y, z) = arm.ORIGIN 
+        
+        
+            MQTTEspSubs.armIniPos = 0.0
         
         
         if xDelta != 0 or yDelta != 0 or zDelta != 0:
             
             
             target_x = x + xDelta
-            target_y = y + yDelta
-            target_z = z + zDelta
+            # 
+            # target_z = z + zDelta
             
          
-            if arm.set_position((target_x, target_y, target_z), 20):
+            if arm.set_position((target_x, y, z), 20):
                 
                 x = target_x
-                y = target_y
-                z = target_z
+                # y = target_y
+                # z = target_z
                 
-                #
+                
                 MQTTEspSubs.fbaseAngle = 0
-                MQTTEspSubs.verticalArmAngle = 0
-                MQTTEspSubs.upDownAngle = 0
+                # MQTTEspSubs.verticalArmAngle = 0
+                # MQTTEspSubs.upDownAngle = 0
                 
-                print("Robot mutat la -> X:{:.1f}, Y:{:.1f}, Z:{:.1f}".format(x, y, z))
+                
             else:
                
                 
                 
                 MQTTEspSubs.fbaseAngle = 0
-                MQTTEspSubs.verticalArmAngle = 0
+                # MQTTEspSubs.verticalArmAngle = 0
+                # MQTTEspSubs.upDownAngle = 0
+            move_sleep = time.ticks_ms() + 30
+
+            target_y = y + yDelta
+            MQTTEspSubs.verticalArmAngle = 0
+            if arm.set_position((x, target_y, z), 20):
+                y = target_y
+            else:
+               MQTTEspSubs.verticalArmAngle = 0
+
+            move_sleep = time.ticks_ms() + 30
+
+            target_z = z + zDelta
+            MQTTEspSubs.upDownAngle = 0
+            if arm.set_position((x, y, target_z), 20):
+                 z = target_z
+            else:
                 MQTTEspSubs.upDownAngle = 0
 
-        
+            move_sleep = time.ticks_ms() + 30
+
+           
+        print("Robot mutat la -> X:{:.1f}, Y:{:.1f}, Z:{:.1f}".format(x, y, z))
+        print("ArmInitPos:{:.1f}".format(armInitPos))
+          
+            
+
+
+      
+      
         move_sleep = time.ticks_ms() + 30
 
   
@@ -294,6 +332,10 @@ while True:
         
    
     time.sleep(0.005)
+
+
+
+
 
 
 

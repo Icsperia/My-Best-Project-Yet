@@ -1,10 +1,10 @@
-\contentsline {section}{Lista de figuri, tabele și coduri sursă}{2}{}%
-\contentsline {section}{Lista de acronime}{3}{}%
-\contentsline {section}{\numberline {1}Capitole principale }{4}{}%
-\contentsline {subsection}{\numberline {1.1}Obiective principale:}{5}{}%
-\contentsline {section}{\numberline {2}Echipamente disponibile:}{5}{}%
-\contentsline {subsection}{\numberline {2.1}Hardware:}{5}{}%
-\contentsline {subsection}{\numberline {2.2}Software:}{5}{}%
+\contentsline {section}{Lista de figuri, tabele și coduri sursă}{3}{}%
+\contentsline {section}{Lista de acronime}{4}{}%
+\contentsline {section}{\numberline {1}Capitole principale }{5}{}%
+\contentsline {subsection}{\numberline {1.1}Obiective principale:}{6}{}%
+\contentsline {section}{\numberline {2}Echipamente disponibile:}{6}{}%
+\contentsline {subsection}{\numberline {2.1}Hardware:}{6}{}%
+\contentsline {subsection}{\numberline {2.2}Software:}{6}{}%
 \contentsline {section}{\numberline {3}Introducere}{4}{}%
 \contentsline {subsection}{\numberline {3.1}Obiectivele și scopul lucrării}{4}{}%
 \contentsline {section}{\numberline {4}Fundamente teoretice}{5}{}%
@@ -20,5 +20,17 @@
 \contentsline {subsection}{\numberline {5.2}Fusion 360}{10}{}%
 \contentsline {section}{\numberline {6}Echipamente folosite}{11}{}%
 \contentsline {subsection}{\numberline {6.1}MaxArm}{11}{}%
-\contentsline {subsection}{\numberline {6.2}Oculus Quest 3S}{12}{}%
-\contentsline {chapter}{Bibliografie momentană}{13}{}%
+\contentsline {subsection}{\numberline {6.2}Oculus Quest 3S}{13}{}%
+\contentsline {section}{\numberline {7}Pașii de implementări}{13}{}%
+\contentsline {section}{\numberline {8}Realizarea modelului 3D și importarea în UNITY}{13}{}%
+\contentsline {subsection}{\numberline {8.1}Realizarea modelului 3D}{13}{}%
+\contentsline {subsection}{\numberline {8.2}Importarea în Unity}{15}{}%
+\contentsline {section}{\numberline {9}Implementarea în Unity, setare proprietăți și constrângeri de mișcare}{18}{}%
+\contentsline {subsection}{\numberline {9.1}Setarea prorprietăților}{18}{}%
+\contentsline {subsubsection}{\numberline {9.1.1}Constrângeri de mișcare}{19}{}%
+\contentsline {section}{\numberline {10}Sistemul de control al brațului în Unity}{20}{}%
+\contentsline {section}{\numberline {11}Comunicarea între brațul real și brațul virtual}{20}{}%
+\contentsline {section}{\numberline {12}Controlul motoarelor brațului real cu cel din virtual}{20}{}%
+\contentsline {section}{\numberline {13}Dificultăți în realizarea proiectului}{20}{}%
+\contentsline {section}{\numberline {14}Rezultate}{20}{}%
+\contentsline {chapter}{Bibliografie momentană}{21}{}%

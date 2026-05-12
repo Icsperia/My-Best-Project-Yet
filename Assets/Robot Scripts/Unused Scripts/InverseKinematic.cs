@@ -28,9 +28,7 @@ public class MaxArmIK : MonoBehaviour
 
     void Start()
     {
-        ConfigureJoint(baseRotative, 10000f, 1000f);
-        ConfigureJoint(shoulder,     10000f, 1000f);
-        ConfigureJoint(elbow,        10000f, 1000f);
+     
     }
 
     void ConfigureJoint(ArticulationBody joint, float stiffness, float damping)

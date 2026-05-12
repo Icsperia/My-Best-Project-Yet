@@ -9,14 +9,14 @@ public class IKTargetController : MonoBehaviour
     public InputActionProperty forwardAction;     // Buton fata
     public InputActionProperty backAction;        // Buton spate
     public InputActionProperty upAction;          // Buton sus
-    public InputActionProperty downAction;        // Buton jos
+    public InputActionProperty downAction;        // Buton jos// Buton jos
 
     [Header("Speed")]
     public float moveSpeed = 0.5f;
 
     [Header("Boundaries")]
-    public Vector3 minBounds = new Vector3(-1.5f, 1.0f, -1.5f);
-    public Vector3 maxBounds = new Vector3( 1.5f, 3.0f,  1.5f);
+    public Vector3 minBounds = new Vector3(-2.0f, 1.0f, -2.0f);
+    public Vector3 maxBounds = new Vector3( 2.0f, 3.0f,  2.0f);
 
     void Update()
     {
