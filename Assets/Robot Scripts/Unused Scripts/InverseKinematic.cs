@@ -31,14 +31,7 @@ public class MaxArmIK : MonoBehaviour
      
     }
 
-    void ConfigureJoint(ArticulationBody joint, float stiffness, float damping)
-    {
-        var drive = joint.xDrive;
-        drive.stiffness = stiffness;
-        drive.damping = damping;
-        drive.forceLimit = float.MaxValue;
-        joint.xDrive = drive;
-    }
+
 
     void FixedUpdate()
     {

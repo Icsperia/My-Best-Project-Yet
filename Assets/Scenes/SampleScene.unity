@@ -892,11 +892,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166142354}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 461073740014f56438047848c609e26a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4766dab2ecb036b4694f365afb0f93c7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PropertiesArticulateBody3
+  m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesHorizontal1
   upperLimit: 75
   lowerLimit: -75
 --- !u!1001 &181743130
@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4766dab2ecb036b4694f365afb0f93c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesHorizontal1
-  upperLimit: 60
+  upperLimit: 0
   lowerLimit: -60
 --- !u!1 &280619867
 GameObject:
@@ -1663,7 +1663,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328962971}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40e529cb207884a939b5a774102363e2, type: 3}
   m_Name: 
@@ -2315,10 +2315,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickUpObjects
   mainTriggerLeft: {fileID: 5124856829409830267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  secondaryTriggerLeft: {fileID: -2543531381401213949, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  secondaryButton: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   pump: {fileID: 399557998}
   pickUpRange: 10
-  prickUpForce: 100
+  pickUpForce: 100
   layerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -2805,11 +2805,7 @@ MonoBehaviour:
   rotativeBase: {fileID: 328962975}
   upDownSegment: {fileID: 803675112}
   noozle: {fileID: 399558001}
-  noozleSupport: {fileID: 1347180121}
-  resetSpeed: 1e+11
   joystickButton: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  isReseting: 0
-  joystickButtonPressed: 0
 --- !u!114 &531199635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2817,7 +2813,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531199628}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 929d7581b42dbd14d84cd31704ffe03b, type: 3}
   m_Name: 
@@ -2849,7 +2845,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 531199628}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8038494dc49913a4c917e69cf7a98cd3, type: 3}
   m_Name: 
@@ -4582,6 +4578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4484e1e195d460b42bb2170af057ec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IKTargetController1
+  baseRotative: {fileID: 328962975}
   leftAction:
     m_UseReference: 1
     m_Action:
@@ -4606,30 +4603,6 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -1311650348824315396, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  forwardAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Forward
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 13d21f96-8918-44d4-9c93-757f1929fd60
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 4855896293718184719, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  backAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Back
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: cf72c9b3-def4-4a02-b432-5dc06e45d3a3
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   upAction:
     m_UseReference: 1
     m_Action:
@@ -4654,9 +4627,34 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  resetButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Reset Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 48c1e967-9cd1-4301-a2f8-754dda65e748
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  joystick:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Joystick
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: bb6378c8-f0ee-4b92-89da-55f368e53dae
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8198699208435500284, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   moveSpeed: 0.5
   minBounds: {x: -2, y: 1, z: -2}
   maxBounds: {x: 2, y: 3, z: 2}
+  resetPosition: {x: -0.13, y: 2.44, z: -0.72}
 --- !u!1 &910096603
 GameObject:
   m_ObjectHideFlags: 8
@@ -6247,7 +6245,7 @@ GameObject:
   - component: {fileID: 1373239431}
   - component: {fileID: 1373239430}
   - component: {fileID: 1373239429}
-  - component: {fileID: 1373239433}
+  - component: {fileID: 1373239434}
   m_Layer: 0
   m_Name: vertical2_1
   m_TagString: Untagged
@@ -6386,7 +6384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::Unity.Robotics.UrdfImporter.UrdfLink
   IsBaseLink: 0
---- !u!114 &1373239433
+--- !u!114 &1373239434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6395,9 +6393,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1373239427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f5efc62394e3345ba25eb08cb05466, type: 3}
+  m_Script: {fileID: 11500000, guid: 112c64b3e9c1aeb4b99b2ed0a0cc2d3e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesVertical2
+  m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesVertical1
   upperLimit: 90
   lowerLimit: -90
 --- !u!1 &1452340062
@@ -6432,6 +6430,7 @@ MonoBehaviour:
   rotativeBase: {fileID: 328962975}
   verticalArm: {fileID: 1979754405}
   upDownSegment: {fileID: 803675112}
+  mainTriggerLeft: {fileID: 5124856829409830267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   xButton: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   brokerIp: 10.104.183.112
   brokerPort: 1883
@@ -9652,14 +9651,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084246964}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27fa34bd3f28e1e4e99f2e580a80dc5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 112c64b3e9c1aeb4b99b2ed0a0cc2d3e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PropertiesArticulateBody9
-  stiffness: 10000
-  damping: 1000
-  limit: 10000
+  m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesVertical1
   upperLimit: 90
   lowerLimit: -90
 --- !u!1 &2090961517

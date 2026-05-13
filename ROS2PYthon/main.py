@@ -54,6 +54,8 @@ MQTTEspSubs.sub("rotativeBase/topic")
 MQTTEspSubs.sub("verticalArm/topic")
 MQTTEspSubs.sub("upDownSegment/topic")
 MQTTEspSubs.sub("armHome/topic")
+MQTTEspSubs.sub("noozle/topic")
+MQTTEspSubs.sub("noozle1/topic")
 #MQTTEsp.connectToBroker()
 #/////////////////////////
 arm.go_home()
@@ -255,11 +257,15 @@ while True:
     yDelta = MQTTEspSubs.verticalArmAngle
     zDelta = MQTTEspSubs.upDownAngle
     armInitPos = MQTTEspSubs.armIniPos
+    noozleVal = MQTTEspSubs.noozleValues
+    noozleVal1 = MQTTEspSubs.noozleValues1
 
    
                 
 
     if time.ticks_ms() >= move_sleep:
+            
+ 
         if(armInitPos>0.5):
 
             arm.go_home(1000)
@@ -267,6 +273,9 @@ while True:
         
         
             MQTTEspSubs.armIniPos = 0.0
+
+
+
         
         
         if xDelta != 0 or yDelta != 0 or zDelta != 0:
@@ -314,11 +323,20 @@ while True:
             else:
                 MQTTEspSubs.upDownAngle = 0
 
+
+        if(noozleVal>0.5):
+            nozzle.on()
+        
+        
+            MQTTEspSubs.noozleValues = 0
+        
+            
             move_sleep = time.ticks_ms() + 30
 
-           
+        
         print("Robot mutat la -> X:{:.1f}, Y:{:.1f}, Z:{:.1f}".format(x, y, z))
         print("ArmInitPos:{:.1f}".format(armInitPos))
+        print("NoozleStatus:{:.1f}".format(noozleVal))
           
             
 
@@ -332,6 +350,8 @@ while True:
         
    
     time.sleep(0.005)
+
+
 
 
 

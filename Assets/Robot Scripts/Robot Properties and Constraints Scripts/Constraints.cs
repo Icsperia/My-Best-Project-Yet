@@ -39,7 +39,6 @@ public class Constraints : MonoBehaviour
         float angleVertica2 = verticalArm.jointPosition[0] * Mathf.Rad2Deg;
         float angleUpDown = upDownSegment.jointPosition[0] * Mathf.Rad2Deg;
         float angleUpDown1 = upDownSegment.jointPosition[0];
-        JointControl vaControl = verticalArm.GetComponent<JointControl>();
 
 
 

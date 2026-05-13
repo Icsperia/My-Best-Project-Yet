@@ -41,9 +41,16 @@ class SuctionNozzle:
       self.valve_f.duty(0)
       self.valve_b.duty(0)
       self.nozzle_st = False
-  
   def off(self):
-    thread.start_new_thread(self._off, ())#启动线程
+    if self.nozzle_st:
+        self.valve_f.duty(self.hz)
+        self.valve_b.duty(0)
+        self.pump_f.duty(0)
+        self.pump_b.duty(0) 
+        time.sleep_ms(300) # Un delay mai mic, fără thread
+        self.valve_f.duty(0)
+        self.valve_b.duty(0)
+        self.nozzle_st = False
   
   def set_angle(self, angle=0, duration=1000):
     pulse = map(angle, -90, 90, 500, 2500)

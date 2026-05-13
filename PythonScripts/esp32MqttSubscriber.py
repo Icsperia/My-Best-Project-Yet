@@ -11,6 +11,8 @@ class esp32MQTTSubscriber:
             self.fbaseAngle = 0.0
             self.verticalArmAngle=0.0
             self.upDownAngle=0.0
+            self.armIniPos = 0.0
+            self.noozleValues = 0.0
             
         
         
@@ -22,10 +24,10 @@ class esp32MQTTSubscriber:
         
                 topic_str = topic.decode()
       
-                msg_str = msg.decode().strip()
+                msg_str = int(float(msg.decode()))
         
        
-                print("MQTT RECEIVE -> Topic: {} | Msg: [{}]".format(topic_str, msg_str))
+                
         
                 msgReceived = float(msg_str)
         
@@ -35,11 +37,15 @@ class esp32MQTTSubscriber:
                     self.verticalArmAngle = msgReceived 
                 elif topic_str == "upDownSegment/topic":
                     self.upDownAngle = msgReceived 
+                elif topic_str == "armHome/topic":
+                      self.armIniPos = msgReceived
+                elif topic_str == "noozle/topic":
+                      self.armIniPos = msgReceived
 
             except ValueError:
-                print("Eroare conversie float: Nu pot converti '{}'".format(msg))
+                print("Eroare conversie float: Nu pot converti '{}'")
             except Exception as e:
-                print("Eroare neprevăzută în CallBack:", e)
+                print("Unexpected error in callback:", e)
           
                       
                
@@ -72,4 +78,6 @@ class esp32MQTTSubscriber:
 
                
                
+
+
 

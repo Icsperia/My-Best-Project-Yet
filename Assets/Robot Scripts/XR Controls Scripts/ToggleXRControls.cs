@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Robotics.UrdfImporter.Control;
-using UnityEngine.AI;
-
-
 
 
 
@@ -63,14 +60,14 @@ public class XRControls : MonoBehaviour
         Vector2 input = moveAction.action.ReadValue<Vector2>();
 
         float horizontal = input.x;
-       // float vertical = input.y;
+        // float vertical = input.y;
 
 
         JointControl brControl = baseRotative.GetComponent<JointControl>();
         JointControl vaControl = verticalArm.GetComponent<JointControl>();
         JointControl uDControl = upDownSegment.GetComponent<JointControl>();
 
-        JointControl pSControl = pumpSupport2.GetComponent<JointControl>();
+
         if (brControl != null)
         {
             if (horizontal > 0.1f) brControl.direction = RotationDirection.Negative;
@@ -100,29 +97,8 @@ public class XRControls : MonoBehaviour
 
         }
 
-        // if (pSControl != null)
-        // {
-        //     if (mainTrigger.action.IsPressed())
-        //     {
-        //         pSControl.direction = RotationDirection.Positive;
-        //     }
-        //     else if (secondaryTrigger.action.IsPressed())
-        //     {
-        //         pSControl.direction = RotationDirection.Negative;
-        //     }else pSControl.direction = RotationDirection.None;
-        // }
-
-        // else if (!bButton.action.IsPressed())
-        // {
-        //     Debug.Log("Deapasat");
-        // }
-        // else
-        // {
-        //     Debug.Log("NImic");
-        // }
-
 
 
 
     }
-}       
+}

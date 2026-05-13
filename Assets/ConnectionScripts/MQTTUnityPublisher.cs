@@ -13,6 +13,8 @@ public class MQTTUnityPublisher : MonoBehaviour
 
     public InputActionReference xButton;
 
+        public InputActionReference mainTriggerLeft;
+
     public string brokerIp = "10.104.183.112";
     public int brokerPort = 1883;
 
@@ -31,6 +33,10 @@ public class MQTTUnityPublisher : MonoBehaviour
     {
         if(xButton.action!=null)
         xButton.action.Enable();
+
+             if(mainTriggerLeft.action!=null)
+     mainTriggerLeft.action.Enable();
+    
     }
     async void Start()
     {
@@ -41,26 +47,28 @@ public class MQTTUnityPublisher : MonoBehaviour
         lastRawZ = upDownSegment.jointPosition[0];
     }
 
-    async void Update()
-    {
+async void Update()
+{
+    if (mqttClient == null || !mqttClient.IsConnected) return;
 
-            
-        bool isButtonPressed = xButton.action.ReadValue<float>() > 0.1f;
-      
-        if (mqttClient != null && mqttClient.IsConnected && Time.time >= nextPublishTime)
-        {
+
+    await SendNoozleValues();
+
+ 
+    if (Time.time >= nextPublishTime)
+    {
+            await SendNoozleValues();
         
-           
-            nextPublishTime = Time.time + publishDelay;
-            await SendRelativeData();
-            if (isButtonPressed)
-            {
-                await SendBoolValues();
-            }       
-            
+        nextPublishTime = Time.time + publishDelay;
+        await SendRelativeData();
+        
+
+        if (xButton.action.ReadValue<float>() > 0.5f)
+        {
+            await SendBoolValues();
         }
     }
-
+}
     async Task ConnectToBroker()
     {
         var factory = new MqttFactory();
@@ -142,4 +150,34 @@ public class MQTTUnityPublisher : MonoBehaviour
         await mqttClient.PublishAsync(message);
     }
 
+private bool nozzleIsActive = false;
+private bool wasPressedLastFrame = false; 
+
+async Task SendNoozleValues()
+{
+    if (mainTriggerLeft.action == null) return;
+
+
+    float triggerValue = mainTriggerLeft.action.ReadValue<float>();
+    
+  
+    bool isCurrentlyPressed = triggerValue > 0.5f;
+
+    if (isCurrentlyPressed && !wasPressedLastFrame)
+    {
+        nozzleIsActive = !nozzleIsActive; 
+        wasPressedLastFrame= true;
+        float valueToSend = nozzleIsActive ? 1.0f : 0.0f;
+
+        await PublishFloat("noozle/topic", valueToSend);
+        Debug.Log("Toggle Nozzle: " + (valueToSend));
+
+    }
+
+  
+if (!isCurrentlyPressed)
+    {
+        wasPressedLastFrame = false;
+    }
+}
 }
