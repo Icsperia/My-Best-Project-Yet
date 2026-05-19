@@ -6,8 +6,8 @@ public class AnglePropertiesVertical1: MonoBehaviour
 {
     private ArticulationBody articulationBody;
 
-    [SerializeField] private float upperLimit = 270f;
-    [SerializeField] private float lowerLimit = -270f;
+    [SerializeField] private float upperLimit;
+    [SerializeField] private float lowerLimit;
 
 
     void Start()

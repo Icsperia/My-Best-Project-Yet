@@ -6430,8 +6430,8 @@ MonoBehaviour:
   rotativeBase: {fileID: 328962975}
   verticalArm: {fileID: 1979754405}
   upDownSegment: {fileID: 803675112}
-  mainTriggerLeft: {fileID: 5124856829409830267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   xButton: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  mainTriggerLeft: {fileID: 5124856829409830267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   brokerIp: 10.104.183.112
   brokerPort: 1883
   sensitivity: 400
@@ -8073,7 +8073,7 @@ Transform:
   m_GameObject: {fileID: 1884539861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.612, y: 0.29, z: -0.352}
+  m_LocalPosition: {x: 0.382, y: 0.29, z: -0.352}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
