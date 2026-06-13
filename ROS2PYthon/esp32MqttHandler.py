@@ -24,8 +24,8 @@ class esp32MQTTHandler:
             try:
         
                 topic_str = topic.decode()  
-                msg_str = int(float(msg.decode()))
-                msgReceived = float(msg_str)
+                msgReceived= float(msg.decode())
+              
         
                 if topic_str == "rotativeBase/topic":
                     self.fbaseAngle = msgReceived 

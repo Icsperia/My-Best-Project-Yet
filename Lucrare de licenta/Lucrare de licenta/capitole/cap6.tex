@@ -1,0 +1,206 @@
+
+\clearpage
+
+
+
+\section{Testare și rezultate}
+\subsection{Importanța rezultatelor experimentale}
+Rezultatele experimentale sunt importante și necesare deoarece oferă informații obiective și irefutabile despre funcționalitatea și performanțele sistemului. Prin acestea se pot verifica și valida soluțiile implementate, optimiza și îmbunătăți sistemul și se  pot evalua riscurile. Rezultatele experimentale ajută în validitatea teoriei și prezintă un suport în implementări ulterioare.
+
+\subsection{Testarea funcționalități-lor}
+%Rezultatele obținute pentru funcționalități-le din cadrul proiectului au fost satisfăcătoare, demonstrând funcționarea corectă a tuturor funcționalități-lor. 
+
+Pentru testarea sistemului au fost realizate următoarele teste pentru:
+\begin{itemize}
+	\item constrângerile cinematice și a bazei secundare rotative
+	\item controlul brațului virtual folosind primul mod de control
+	\item controlul brațului virtual folosind al doilea mod de control
+	\item reset și manipulare de obiecte
+	%\item pentru camera video
+	\item pentru sistemul de tutorial
+	\item fluxul de comunicației între brațe
+\end{itemize}
+
+\subsubsection{Testarea constrângerilor cinematice și a bazei secundare rotative}
+%Înainte de implementarea controlului prin manete VR ale controlului a fost necesară testarea constrângerilor cinematice. 
+
+
+Constrângerile cinematice au fost testate prin dezactivarea "XRI Interaction Toolkit" și activarea controlului folosind tastatura. Astfel au fost folosite următoarele butoane:"W" și "S" pentru selectarea segmentului și "A" și "D" pentru rotirea într-o direcție sau alta a segmentului selectat. 
+
+Constrângerile cinematice au ca segmente părinte următoarele: segmentul vertical principal și segmentul lateral de urcare-coborâre. Baza secundară rotativă fiind părinte pentru restul segmentelor nu a necesitat constrângeri cinematice
+
+Pe parcursul testării majoritatea constrângerilor cinematice au fost respectate cu excepția a tijei ajutătoare orizontale 1. 
+
+În cazul acestuia când segmentul lateral de urcare-coborâre se deplasa la unghiuri prea mari, acesta începea să se desprindă care ducea și la deviații ale suportului de pompă care începea să se deplaseze către interiorul brațului cum se poate observa în imaginea de mai jos:
+
+
+\subsubsection{Testarea controlului brațului virtual folosind primul mod de control}
+
+Primul mode de control al brațului a fost testat prin apăsarea fiecărui buton ale manetei care corespunde cu componenta care trebuia să o controleze. Astfel au fost testate următoarele interacțiuni:
+\begin{itemize}
+	\item  thumbstick-ul când este mișcat stânga-dreapta baza rotativă să se rotească stânga-dreapta 
+	\item  când sunt apăsate cele 2 butoane marcate cu litere să se ducă segmentul orizontal principal si cu suportul pentru ventuză sus-jos
+	\item  când  sunt apăsate cele "triggers" segmentul vertical principal să se deplaseze stânga-dreapta
+\end{itemize}
+
+În urma acestui test acest mod de control s-a comportat foarte satisfăcător, executând corect și fără întârzieri acțiunile pe care trebuia să le execute în momentul în care au fost primite de la manetă.
+
+\subsubsection{Testarea controlului brațului folosind cel de al doilea mod de control}
+Al doilea mod de control a fost testa prin apăsarea butoanelor de pe manetă care controlează  o direcție a efectorului final. În urma direcției a efectorului final segmentele brațului să se deplaseze în aceea direcție. Astfel au fost testate următoarele direcții ale efectorului: sus-jos, stânga-dreapta, față-spate. 
+
+În urma testelor inițiale a fost constată că brațul nu calcula unghiurile corect față de poziția efectorului final. Soluția la această problemă a reprezentat-o folosirea valorii de 90 negativă în calcularea unghiului pentru segmentul lateral. A mai fost observat faptul că baza secundară se rotea numai când brațul era complet întis, acesta trebuind să se rotească indiferent de calcule.
+
+Soluția pentru cea de a 2 problemă a constat în separarea mișcării de rotație față de algoritm folosind controlul implementat la metoda directă.
+
+Testele finale realizate cu soluțiile implementate au fost foarte satisfăcătoare, controlul fiind fluid și respecta direcțiile provenite de la efectorul final.
+
+Butoanele care corespund cu direcțiile sunt aceleași cu care controlează direcțiile în cazul primului mod de control.
+
+\subsubsection{Testarea funcționalității de reset și manipulare de obiecte}
+Funcționalitatea de reset a fost testată prin apăsarea butonului atribuit acestea acțiuni. Pentru manipularea obiectelor testarea a fost realizată prin direcționarea brațului către obiectul din scenă și apăsarea butonului care este asociat cu ridicarea, respectiv coborârea obiectului.
+
+Testul reset s-a comportat în conform așteptărilor. În momentul când a fost trimisă comanda de reset robotul a revenit la poziția inițială și unghiurile au fost setate la valoare implicită.
+
+În urma testării manipulării obiectelor a fost constată faptul că dacă obiectul este lăsat în învecinătatea punctului de unde a fost preluat acesta se teleporta în acel punct.
+
+O altă problemă minoră observată o reprezintă că în momentul în care este dată comanda ca pompa să fie dezactivată obiectul nu era lăsat din capătul ventuzei ci din punctul de origine al "joint-ului" care prinde ventuza de suport. 
+
+\begin{itemize}
+	\item De pus imagine cu testele astea asta
+\end{itemize}
+
+
+\subsubsection{Testarea sistemului de tutorial}
+Sistemul de tutorial a fost testat prin punerea în aplicare a acțiunilor legate de mișcarea prin scenă și cele de control al brațului. În urma execuției unei acțiuni de exemplu să se miște brațul stânga sau dreapta indicatorul corespunzător acelei acțiuni să se facă din culoarea roșu, care marchează că acțiunea nu a fost executată, în culoarea verde care marchează că acțiunea a fost executată. 
+
+ În urma testării, s-a comportat foarte satisfăcător astfel încât când o instrucțiune din listă a fost executată, brațul a fost mișcat conform acțiunii respective și indicatorul din dreptul acțiunii respective și-a schimbat culoarea conform implementării. 
+
+\subsubsection{Testarea fluxului de comunicație între brațe}
+Pentru verificarea că brațul real copiază mișcările celui virtual se baza pe afișarea în terminale a valorilor trimise de Unity, respectiv cele procesate de braț. Pe lângă a mai fost folosită metoda de testare prin validare vizuală externă unde a fost folosită o cameră video care filma brațul real când era mișcat cel virtual și erau comparate cele 2. Iar pentru sistemul de feedback testarea a  fost realizată folosind consola din Unity unde a fost comparat cu ce a trimis Unity și cu ce recepționat Unity de la brațul real.
+
+În urma testării inițiale a fluxului au fost constatate următoarele: 
+\begin{itemize}
+	\item brațul real se folosea de valori relative pentru a putea fi controlat nu valori absolute cum au fost transmise inițial valorile. Acest fapt a dus la plieri ale brațului aproape de limite, care au dus la ruperea ventuzei de suport.
+	
+	
+	\begin{itemize}
+		\item De pus imagine cu asta
+	\end{itemize}
+	
+	\item poziția care stă robotul când este pornit nu are valoarea unghiului segmentului vertical principal 0 așa cum a fost presupus inițial
+	
+	
+	\begin{itemize}
+		\item De pus imagine cu asta
+	\end{itemize}
+	
+	\item în momentul când se dorește ca brațul real să se deplaseze numai față-spate nu este posibil fără să fie coborât puțin la început
+	
+	\item a mai fost observat faptul că robotul real față de cel virtual se mișca sacadat adică avea în mișcare întreruperi scurte și bruște
+\end{itemize}
+
+
+În urma testării finale unde au fost remediate problemele legate de valorile trimise și fluxul de comunicație se comporta satisfăcător.
+
+Valorile trimise erau aplicate corect pe braț și pentru problema  de mișcare în care deplasarea brațul real  față-spate nu este posibil fără să fie coborât puțin la început a fost constată că această implementare a fost aleasă  de către producătorul brațului. Pentru partea de latență de comunicație din punctul de vedere al rețelei nu s-au făcut teste deoarece a fost folosită o rețea locală, unde este de așteptat latența este mică.
+
+Rezultatul testului pentru sistemul de feedback a fost foarte satisfăcătoare în care valorile primite de a brațul real erau aproximativ aceleași cu excepția celei pentru pentru segmentul vertical principal.
+
+
+\begin{itemize}
+	\item De pus imagini cu asta
+\end{itemize}
+
+\subsection{Interpretarea rezultatelor testelor}
+Pe baza rezultatelor în urma testărilor realizate au fost identificate probleme provenite fie de la implementarea proprie realizată fie de la producător cât și posibile îmbunătățiri cât și ajustări care pot fi aduse asupra sistemului pentru a asigura o performanță optimă și o funcționare mai simplă și eficientă a sistemului.
+
+Astfel, performața sistemului din punct de vedere al procesării comenzilor primite de la manete căștii VR pentru robotul VR, de la trimiterea prin broker a datelor și aplicării acesteia până la brațul real cât și trimiterea de feedback către Unity este peste așteptări.
+
+
+
+
+
+\subsubsection{Metrici, metri/secunda, filmand pas cu pas si script separat unde dau pasi de miscare gen coborare/urcare. fata/spate}
+
+\begin{comment}
+	
+
+
+
+
+\subsection{Rezultate testelor}
+Rezultatele obținute pentru funcționalități-le din cadrul proiectului au fost satisfăcătoare, demonstrând funcționarea a tuturor funcționalități-lor cât și că proiectul pe durata dezvoltării a îndeplinit obiectivele principale impuse.
+
+\subsubsection{Rezultat testării constrângerilor cinematice}
+
+Pe parcursul testării majoritatea constrângerilor cinematice au fost respectate cu excepția a tijei ajutătoare orizontale 1. 
+
+În cazul acestuia când segmentul lateral de urcare-coborâre se deplasa la unghiuri prea mari, acesta începea să se desprindă care ducea și la deviații ale suportului de pompă care începea să se deplaseze către interiorul brațului cum se poate observa în imaginea de mai jos:
+
+\begin{itemize}
+	\item De pus imagine cu testul asta
+\end{itemize}
+
+\subsubsection{Rezultatul testării controlului brațului virtual folosind primul mod de control implementat}
+
+În urma acestui test acest mod de control s-a comportat foarte satisfăcător, executând corect și fără întârzieri acțiunile pe care trebuia să le execute în momentul în care au fost primite de la manetă.
+
+\subsubsection{Rezultatul testării controlului brațului virtual folosind control bazat pe cinematica inversă}
+
+În urma testelor inițiale a fost constată că brațul nu calcula unghiurile corect față de poziția efectorului final. Soluția la această problemă a reprezentat-o folosirea valorii de 90 negativă în calcularea unghiului pentru segmentul lateral. A mai fost observat faptul că baza secundară se rotea numai când brațul era complet întis, acesta trebuind să se rotească indiferent de calcule.
+
+Soluția pentru cea de a 2 problemă a constat în separarea mișcării de rotație față de algoritm folosind controlul implementat la metoda directă.
+
+Testele finale realizate cu soluțiile implementate au fost foarte satisfăcătoare, controlul fiind fluid și respecta direcțiile provenite de la efectorul final.
+
+\subsubsection{Rezultatul testării funcționalității de reset și manipulare de obiecte}
+Testul reset s-a comportat în conform așteptărilor. În momentul când a fost trimisă comanda de reset robotul a revenit la poziția inițială și unghiurile au fost setate la valoare implicită.
+
+ În urma testării manipulării obiectelor a fost constată faptul că dacă obiectul este lăsat în învecinătatea punctului de unde a fost preluat acesta se teleporta în acel punct.
+ 
+  O altă problemă minoră observată o reprezintă că în momentul în care este dată comanda ca pompa să fie dezactivată obiectul nu era lăsat din capătul ventuzei ci din punctul de origine al "joint-ului" care prinde ventuza de suport. 
+
+\begin{itemize}
+	\item De pus imagine cu testele astea asta
+\end{itemize}
+
+
+\subsubsection{Rezultatul testării sistemului de antrenament}
+Sistemul de antrenament, în urma testării, s-a comportat foarte satisfăcător astfel încât când o instrucțiune din listă a fost executată, brațul a fost mișcat conform acțiunii respective și indicatorul din dreptul acțiunii respective și-a schimbat culoarea conform implementării. 
+
+
+\subsubsection{Rezultatele testării fluxului de comunicație}
+În urma testării inițiale a fluxului au fost constatate următoarele: 
+\begin{itemize}
+	\item brațul real se folosea de valori relative pentru a putea fi controlat nu valori absolute cum au fost transmise inițial valorile. Acest fapt a dus la plieri ale brațului aproape de limite, care au dus la ruperea ventuzei de suport.
+	
+	
+	\begin{itemize}
+		\item De pus imagine cu asta
+	\end{itemize}
+	
+	\item poziția care stă robotul când este pornit nu are valoarea unghiului segmentului vertical principal 0 așa cum a fost presupus inițial
+	
+	
+\begin{itemize}
+	\item De pus imagine cu asta
+\end{itemize}
+
+	\item a mai fost observat faptul că în momentul când se dorește ca brațul real să se deplaseze numai față-spate nu este posibil fără să fie coborât puțin la început
+\end{itemize}
+
+În urma testării finale unde au fost remediate problemele legate de valorile trimise și fluxul de comunicație se comporta satisfăcător.
+ 
+ Valorile trimise erau aplicate corect pe braț și pentru problema  de mișcare în care deplasarea brațul real  față-spate nu este posibil fără să fie coborât puțin la început a fost constată că această implementare a fost aleasă  de către producătorul brațului. Pentru partea de latență de comunicație din punctul de vedere al rețelei nu s-au făcut teste deoarece a fost folosită o rețea locală, unde este de așteptat latența este mică.
+
+Rezultatul testului pentru sistemul de feedback a fost foarte satisfăcătoare în care valorile primite de a brațul real erau aproximativ aceleași cu excepția celei pentru pentru segmentul vertical principal.
+
+	
+\begin{itemize}
+	\item De pus imagini cu asta
+\end{itemize}
+
+Pe baza rezultatelor în urma testărilor realizate au fost identificate probleme provenite fie de la implementarea proprie realizată fie de la producător cât și posibile îmbunătățiri cât și ajustări care pot fi aduse asupra sistemului pentru a asigura o performanță optimă și o funcționare mai simplă și eficientă a sistemului.
+
+Astfel, performața sistemului din punct de vedere al procesării comenzilor primite de la manete căștii VR pentru robotul VR, de la trimiterea prin broker a datelor și aplicării acesteia până la brațul real cât și trimiterea de feedback către Unity este peste așteptări.
+\end{comment}

@@ -1,8 +1,6 @@
-using System;
-using System.Data.Common;
-using UnityEditor;
+
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class ResetPositions : MonoBehaviour
@@ -17,11 +15,8 @@ public class ResetPositions : MonoBehaviour
 
     public InputActionReference joystickButton;
 
-    void Start()
-    {
-
-    }
-
+    public float resetSpeed = 50f;
+    private bool isResetting = false;
     void OnEnable()
     {
         if (joystickButton != null)
@@ -32,15 +27,11 @@ public class ResetPositions : MonoBehaviour
     void FixedUpdate()
     {
 
-
-        if (joystickButton.action.IsPressed())
+        if (joystickButton.action.WasPressedThisFrame() && !isResetting)
         {
-
-            resetPosition(verticalArm);
-            resetPosition(rotativeBase);
-            resetPosition(noozle);
-            resetPosition(upDownSegment);
-
+            
+  StartCoroutine(SmoothResetCouroutine());
+ 
         }
 
     }
@@ -52,4 +43,35 @@ public class ResetPositions : MonoBehaviour
         source.xDrive = drive;
 
     }
+   
+    IEnumerator SmoothResetCouroutine()
+    {
+        
+        isResetting = true;
+        bool allZero = false;
+
+        while (!allZero)
+        {
+            bool vDone = MoveTowardtoZero(verticalArm);
+            bool rDone = MoveTowardtoZero(rotativeBase);
+            bool nDone = MoveTowardtoZero(noozle);
+            bool uDone = MoveTowardtoZero(upDownSegment);
+      
+         allZero = rDone && vDone &&  nDone && uDone;
+         yield return new WaitForFixedUpdate();
+    
+        }
+      isResetting = false;
+    
+    }
+    bool MoveTowardtoZero(ArticulationBody source)
+    {
+             var drive = source.xDrive;
+             drive.target  = Mathf.MoveTowards(drive.target, 0.0f, resetSpeed*Time.fixedDeltaTime);
+             source.xDrive = drive;
+
+             return Mathf.Abs(drive.target) < 0.001f;
+
+    }
+
 }

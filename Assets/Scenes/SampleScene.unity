@@ -333,8 +333,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a68d7753bea39048b79b7b11c953d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Subscriber
-  brokerIp: 10.104.183.112
-  brokerPort: 1883
+  brokerIp: 6.tcp.eu.ngrok.io
+  brokerPort: 19775
 --- !u!4 &54022488
 Transform:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  - {fileID: 2100000, guid: 3d87b49862c3e2a4a82693dbafbaa248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -747,7 +747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503989109714432937, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_Name
-      value: Controls Panel (1)
+      value: Tasks
       objectReference: {fileID: 0}
     - target: {fileID: 3297219238015160179, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_Enabled
@@ -1084,8 +1084,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4766dab2ecb036b4694f365afb0f93c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesHorizontal1
-  upperLimit: 75
-  lowerLimit: -75
+  upperLimit: 45
+  lowerLimit: -45
 --- !u!1001 &181743130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1331,7 +1331,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200303207}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1339,7 +1339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1327, y: -84.8}
+  m_AnchoredPosition: {x: -1128, y: -100}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200303209
@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnglePropertiesHorizontal1
   upperLimit: 0
-  lowerLimit: -60
+  lowerLimit: -75
 --- !u!1 &280619867
 GameObject:
   m_ObjectHideFlags: 8
@@ -2181,9 +2181,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::JointControl
   direction: 0
-  speed: 60
-  joint: {fileID: 328962975}
   controltype: 0
+  speed: 100
+  torque: 0
+  acceleration: 0
+  joint: {fileID: 328962975}
 --- !u!1 &335179275
 GameObject:
   m_ObjectHideFlags: 0
@@ -3146,6 +3148,7 @@ GameObject:
   - component: {fileID: 531199635}
   - component: {fileID: 531199634}
   - component: {fileID: 531199638}
+  - component: {fileID: 531199640}
   m_Layer: 0
   m_Name: maxarmv2.2
   m_TagString: robot
@@ -3227,6 +3230,7 @@ MonoBehaviour:
   upDownSegment: {fileID: 803675112}
   noozle: {fileID: 399558001}
   joystickButton: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  resetSpeed: 1
 --- !u!114 &531199635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,11 +3276,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaxArmIK1
   baseRotative: {fileID: 328962975}
-  shoulder: {fileID: 1979754405}
-  elbow: {fileID: 803675112}
+  verticalArm: {fileID: 1979754405}
+  upDownSegment: {fileID: 803675112}
   target: {fileID: 885135933}
   robotScale: 5
-  jointSpeed: 200
+  jointSpeed: 20
 --- !u!114 &531199639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3303,6 +3307,41 @@ MonoBehaviour:
   stiffness: 20000
   damping: 200
   limit: 20000
+--- !u!114 &531199640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531199628}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc52aadadf73e64c8431fab27e9ae42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StepByStep
+  baseRotative: {fileID: 328962975}
+  moveAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Move
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e5323e3d-072a-4569-b0f2-3c420adadbd4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8198699208435500284, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  verticalArm: {fileID: 1979754405}
+  upDownSegment: {fileID: 803675112}
+  bButton: {fileID: -1311650348824315396, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  aButton: {fileID: 7376770234061326826, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  mainTrigger: {fileID: 8836625431948561128, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  secondaryTrigger: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  pumpSupport2: {fileID: 399558001}
+  stepSize: 5
+  speed: 2
+  smoothTime: 0.3
 --- !u!1 &541464335
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,7 +3370,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541464335}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3339,7 +3378,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1456, y: -31}
+  m_AnchoredPosition: {x: -1128, y: 230}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &541464337
@@ -3841,7 +3880,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f95c205049f12cc4cb5bd57dbded286c, type: 2}
+  - {fileID: 2100000, guid: f23603c03ff8ef04fbe77f826cc1085c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4079,7 +4118,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674881127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4087,7 +4126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1607, y: -91}
+  m_AnchoredPosition: {x: -1128, y: 140}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &674881129
@@ -4661,7 +4700,7 @@ MonoBehaviour:
   moveAround:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Move Around
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: 82c8733c-69bf-4085-a850-aa5e4372dcf8
@@ -4694,7 +4733,7 @@ Transform:
   m_GameObject: {fileID: 758724097}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.82464, y: 0.125, z: -3.58687}
+  m_LocalPosition: {x: 40.82464, y: 8.07, z: -3.58687}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4854,11 +4893,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd, type: 3}
       propertyPath: m_LocalScale.z
-      value: 14
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4266640295717640281, guid: beb4e2871579447497fe41dfb108e2cd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5088,9 +5127,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::JointControl
   direction: 0
-  speed: 60
-  joint: {fileID: 803675112}
   controltype: 0
+  speed: 60
+  torque: 0
+  acceleration: 0
+  joint: {fileID: 803675112}
 --- !u!1001 &816907077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5595,9 +5636,11 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -8198699208435500284, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   moveSpeed: 0.5
+  resetSpeed: 1
   minBounds: {x: -2, y: 1, z: -2}
   maxBounds: {x: 2, y: 3, z: 2}
   resetPosition: {x: -0.13, y: 2.44, z: -0.72}
+  smoothTime: 5
 --- !u!1001 &889825562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5612,7 +5655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1503989109714432937, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_Name
-      value: Controls Panel
+      value: Controls
       objectReference: {fileID: 0}
     - target: {fileID: 3297219238015160179, guid: dc067c577ec1b854684d789b6e727cc0, type: 3}
       propertyPath: m_Enabled
@@ -6133,7 +6176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  - {fileID: 2100000, guid: 3d87b49862c3e2a4a82693dbafbaa248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6297,7 +6340,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058564924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6305,7 +6348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1499, y: -142.57126}
+  m_AnchoredPosition: {x: -1128, y: 50}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058564926
@@ -6779,7 +6822,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099733962}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6787,7 +6830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1773, y: -31}
+  m_AnchoredPosition: {x: -1128, y: 200}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099733964
@@ -7245,7 +7288,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  - {fileID: 2100000, guid: 3d87b49862c3e2a4a82693dbafbaa248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7318,7 +7361,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237982344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7326,7 +7369,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1675.1, y: -142.57127}
+  m_AnchoredPosition: {x: -1128, y: -40}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1237982346
@@ -7786,7 +7829,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f95c205049f12cc4cb5bd57dbded286c, type: 2}
+  - {fileID: 2100000, guid: f23603c03ff8ef04fbe77f826cc1085c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8057,7 +8100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f95c205049f12cc4cb5bd57dbded286c, type: 2}
+  - {fileID: 2100000, guid: f23603c03ff8ef04fbe77f826cc1085c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8341,7 +8384,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395018219}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8349,7 +8392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1591, y: 28}
+  m_AnchoredPosition: {x: -1128, y: 170}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1395018221
@@ -8535,8 +8578,8 @@ MonoBehaviour:
   upDownSegment: {fileID: 803675112}
   xButton: {fileID: 8402607741090894688, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   mainTriggerLeft: {fileID: 5124856829409830267, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  brokerIp: 10.104.183.112
-  brokerPort: 1883
+  brokerIp: 6.tcp.eu.ngrok.io
+  brokerPort: 19775
   sensitivity: 400
   publishDelay: 0.05
   deadzone: 1
@@ -8850,6 +8893,7 @@ GameObject:
   - component: {fileID: 1614304342}
   - component: {fileID: 1614304341}
   - component: {fileID: 1614304340}
+  - component: {fileID: 1614304343}
   m_Layer: 0
   m_Name: base_link
   m_TagString: Untagged
@@ -8972,6 +9016,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::Unity.Robotics.UrdfImporter.UrdfLink
   IsBaseLink: 0
+--- !u!114 &1614304343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614304338}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d607ea46a579d44c4b19a6322ce4b9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::Unity.Robotics.UrdfImporter.Control.Controller
+  selectedJoint: 
+  selectedIndex: 0
+  control: 0
+  stiffness: 0
+  damping: 0
+  forceLimit: 0
+  speed: 20
+  torque: 100
+  acceleration: 5
+  highLightColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1645857281
 GameObject:
   m_ObjectHideFlags: 0
@@ -9387,7 +9453,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705875613}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9395,7 +9461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -757, y: -142.57126}
+  m_AnchoredPosition: {x: -1128, y: 110}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1705875615
@@ -9621,7 +9687,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715512285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9629,7 +9695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1130, y: -142.57126}
+  m_AnchoredPosition: {x: -1128, y: -10}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1715512287
@@ -10368,7 +10434,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871122322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10376,7 +10442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1314, y: -142.57127}
+  m_AnchoredPosition: {x: -1128, y: 20}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1871122324
@@ -10588,7 +10654,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f95c205049f12cc4cb5bd57dbded286c, type: 2}
+  - {fileID: 2100000, guid: f23603c03ff8ef04fbe77f826cc1085c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10846,7 +10912,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924381983}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10854,7 +10920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -946, y: -142.57126}
+  m_AnchoredPosition: {x: -1128, y: 80}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1924381985
@@ -11232,9 +11298,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Robotics.UrdfImporter::JointControl
   direction: 0
-  speed: 60
-  joint: {fileID: 1979754405}
   controltype: 0
+  speed: 60
+  torque: 0
+  acceleration: 0
+  joint: {fileID: 1979754405}
 --- !u!1 &1987998807
 GameObject:
   m_ObjectHideFlags: 8
@@ -11341,7 +11409,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  - {fileID: 2100000, guid: 3d87b49862c3e2a4a82693dbafbaa248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11499,7 +11567,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  - {fileID: 2100000, guid: 3d87b49862c3e2a4a82693dbafbaa248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12335,7 +12403,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058822857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12343,7 +12411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -946, y: -84.7}
+  m_AnchoredPosition: {x: -1128, y: -130}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2058822859
@@ -12989,7 +13057,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 727f87098255ad04987a60f5f08390bc, type: 2}
+  - {fileID: 2100000, guid: 3d87b49862c3e2a4a82693dbafbaa248, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13062,7 +13130,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140164356}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -27}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13070,7 +13138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1132, y: -84.8}
+  m_AnchoredPosition: {x: -1128, y: -70}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2140164358

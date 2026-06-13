@@ -60,7 +60,7 @@ public class XRControls : MonoBehaviour
         Vector2 input = moveAction.action.ReadValue<Vector2>();
 
         float horizontal = input.x;
-        // float vertical = input.y;
+    
 
 
         JointControl brControl = baseRotative.GetComponent<JointControl>();
@@ -101,4 +101,6 @@ public class XRControls : MonoBehaviour
 
 
     }
+
+
 }

@@ -4,8 +4,8 @@ public class RoboticArmInverseKinematics : MonoBehaviour
 {
     [Header("Joints")]
     public ArticulationBody baseRotative;
-    public ArticulationBody shoulder;
-    public ArticulationBody elbow;
+    public ArticulationBody verticalArm;
+    public ArticulationBody upDownSegment;
 
     [Header("Target")]
     public Transform target;
@@ -21,8 +21,8 @@ public class RoboticArmInverseKinematics : MonoBehaviour
     const float L2 = 128.0f;
     const float L3 = 138.0f;
 
-    private float  currentShoulder;
-    private float  currentElbow;
+    private float  currentVerticalArm;
+    private float  currentUpDownSegment;
 
     void FixedUpdate()
     {
@@ -66,17 +66,17 @@ public class RoboticArmInverseKinematics : MonoBehaviour
         float b = Mathf.Acos(cosB) * Mathf.Rad2Deg;
         float c = Mathf.Atan2(h, r) * Mathf.Rad2Deg;
 
-        //float targetShoulder = 90f - (b + c);
-        float targetShoulder = -90f + (b + c);
-        float targetElbow    = 90f - a;
+        //float targetVerticalArm = 90f - (b + c);
+        float targetVerticalArm = -90f + (b + c);
+        float targetUpDownSegment    = 90f - a;
 
-        Debug.Log($"[IK] Shoulder={targetShoulder:F1} Elbow={targetElbow:F1} d={d:F0}mm");
+        //Debug.Log($"[IK] Shoulder={targetVerticalArm:F1} Elbow={targetUpDownSegment:F1} d={d:F0}mm");
 
-         currentShoulder = Mathf.LerpAngle( currentShoulder, targetShoulder, Time.fixedDeltaTime * jointSpeed);
-         currentElbow    = Mathf.LerpAngle( currentElbow,    targetElbow,    Time.fixedDeltaTime * jointSpeed);
+         currentVerticalArm = Mathf.LerpAngle( currentVerticalArm, targetVerticalArm, Time.fixedDeltaTime * jointSpeed);
+         currentUpDownSegment    = Mathf.LerpAngle( currentUpDownSegment,    targetUpDownSegment,    Time.fixedDeltaTime * jointSpeed);
 
-        SetJointAngle(shoulder,  currentShoulder);
-        SetJointAngle(elbow,     currentElbow);
+        SetJointAngle(verticalArm,  currentVerticalArm);
+        SetJointAngle(upDownSegment,     currentUpDownSegment);
     }
 
     void SetJointAngle(ArticulationBody joint, float angle)

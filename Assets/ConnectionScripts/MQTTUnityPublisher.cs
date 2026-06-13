@@ -88,7 +88,8 @@ async void Update()
         float curX = rotativeBase.jointPosition[0];
         float curY = verticalArm.jointPosition[0];
         float curZ = upDownSegment.jointPosition[0];
-
+          //Debug.Log(curY+curZ+curX);
+   
       
         int deltaX = Mathf.RoundToInt(-(curX - lastRawX) * sensitivity);
         int deltaY = Mathf.RoundToInt((curY - lastRawY) * sensitivity);
@@ -97,24 +98,23 @@ async void Update()
     
         if (Mathf.Abs(deltaX) >= deadzone) 
         {
-            await PublishInt("rotativeBase/topic", deltaX);
+            await PublishFloat("rotativeBase/topic", deltaX);
             lastRawX = curX;
         }
 
         if (Mathf.Abs(deltaY) >= deadzone)
         {
-            await PublishInt("verticalArm/topic", deltaY);
+            await PublishFloat("verticalArm/topic", deltaY);
             lastRawY = curY;
         }
 
         if (Mathf.Abs(deltaZ) >= deadzone)
         {
-            await PublishInt("upDownSegment/topic", deltaZ);
+            await PublishFloat("upDownSegment/topic", deltaZ);
             lastRawZ = curZ;
         }
 
-    
-   
+      
     }
 
     async Task SendBoolValues()
@@ -145,7 +145,7 @@ async void Update()
     {
         var message = new MqttApplicationMessageBuilder()
             .WithTopic(topic)
-            .WithPayload(value.ToString())
+            .WithPayload(value.ToString("F2"))
             .Build();
         await mqttClient.PublishAsync(message);
     }

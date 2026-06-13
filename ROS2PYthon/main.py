@@ -39,7 +39,7 @@ MQTTEsp= esp32MQTTHandler()
 connectToWifi.connect("Redmi Note 12 Pro 5G","12345678")
 
 
-MQTTEsp.identificationInfo("MaxArm",' 10.104.183.112',1883)
+MQTTEsp.identificationInfo("MaxArm",'7.tcp.eu.ngrok.io',18502)
 MQTTEsp.connectToBroker()
 MQTTEsp.sub("rotativeBase/topic")
 MQTTEsp.sub("verticalArm/topic")
@@ -58,7 +58,7 @@ nozzle_angle = 0
 buzzer.setBuzzer(80)
 (x,y,z) = arm.ORIGIN
 move_sleep = time.ticks_ms()
-threshold = 1.0
+threshold = 0.05
 
 
 print("Start")
@@ -71,12 +71,14 @@ noozleVal = MQTTEsp.noozleValues
 lastX = x
 lastY = y
 lastZ = z
-
+speed = 20
 status = -1
 while True:
     currX = x
     currY = y
     currZ = z
+   
+           
 
    
     if (abs(currX - lastX) >= threshold or abs(currY - lastY) >= threshold or  abs(currZ - lastZ) >= threshold):
@@ -92,7 +94,7 @@ while True:
     if MQTTEsp.client:
         try:
             MQTTEsp.client.check_msg()
-        except OSErrror as e:
+        except OSError as e:
             pass
         
    
@@ -101,6 +103,9 @@ while True:
     zDelta = MQTTEsp.upDownAngle
     armInitPos = MQTTEsp.armIniPos
     noozleVal = MQTTEsp.noozleValues
+    #print("Robot mutat la -> X:{:.1f}, Y:{:.1f}, Z:{:.1f}".format(x, y, z))
+    #print("ArmInitPos:{:.1f}".format(armInitPos))
+    #print("NoozleStatus:{:.1f}".format(noozleVal))
     
    
     
@@ -122,51 +127,67 @@ while True:
         
        
         if(armInitPos>0.5):
-            arm.go_home(1000)
-            (x, y, z) = arm.ORIGIN 
+            arm.go_home(10000)
+            (x,y,z) = arm.ORIGIN
+            #if arm.set_position((target_x, target_y, target_z), speed):
+               # x = target_x
+               # y = target_y
+               # z = target_z
             MQTTEsp.armIniPos = 0.0
             reset_msg =  " Reseted:{:.1f}".format(armInitPos)
             MQTTEsp.pub("reset/topic", reset_msg)
 
-        if xDelta != 0 or yDelta != 0 or zDelta != 0:  
-           
+        if xDelta != 0 or yDelta != 0 or zDelta != 0:
+            # target_x = x + xDelta
+            # target_y = y + yDelta
+            # target_z = z + zDelta
+            # if arm.set_position((target_x, target_y, target_z), speed):
+            #     x = target_x
+            #     y = target_y
+            #     z = target_z
+
+            MQTTEsp.fbaseAngle = 0
+            MQTTEsp.verticalArmAngle = 0
+            MQTTEsp.upDownAngle = 0
             target_x = x + xDelta
-            if arm.set_position((target_x, y, z), 30):
+            if arm.set_position((target_x, y, z), speed):
                 x = target_x   
                 MQTTEsp.fbaseAngle = 0
             else:     
                 MQTTEsp.fbaseAngle = 0
-            move_sleep = time.ticks_ms() + 30
+           
 
             target_y = y + yDelta
             MQTTEsp.verticalArmAngle = 0
-            if arm.set_position((x, target_y, z), 30):
+            if arm.set_position((x, target_y, z), speed):
                 y = target_y
             else:
                MQTTEsp.verticalArmAngle = 0
-            move_sleep = time.ticks_ms() + 30
+       
             target_z = z + zDelta
             
             MQTTEsp.upDownAngle = 0
-            if arm.set_position((x, y, target_z), 30):
+            if arm.set_position((x, y, target_z), speed):
                  z = target_z
             else:
                 MQTTEsp.upDownAngle = 0
             
            
 
-            move_sleep = time.ticks_ms() + 30
+        move_sleep = time.ticks_ms() + 30
      
 
-#         print("Robot mutat la -> X:{:.1f}, Y:{:.1f}, Z:{:.1f}".format(x, y, z))
-#         print("ArmInitPos:{:.1f}".format(armInitPos))
-#         print("NoozleStatus:{:.1f}".format(noozleVal))
+           
           
           
      
-        move_sleep = time.ticks_ms() + 30
+       # move_sleep = time.ticks_ms() + 30
 
     time.sleep(0.005)
+
+
+
+
 
 
 
