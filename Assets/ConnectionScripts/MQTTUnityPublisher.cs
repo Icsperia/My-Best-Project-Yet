@@ -23,7 +23,7 @@ public class MQTTUnityPublisher : MonoBehaviour
 
     public float sensitivity = 500f; 
     public float publishDelay = 0.05f; 
-    public int deadzone = 1; 
+    public float deadzone = 1.0f; 
 
     private float lastRawX, lastRawY, lastRawZ;
     private float nextPublishTime;
@@ -91,9 +91,9 @@ async void Update()
           //Debug.Log(curY+curZ+curX);
    
       
-        int deltaX = Mathf.RoundToInt(-(curX - lastRawX) * sensitivity);
-        int deltaY = Mathf.RoundToInt((curY - lastRawY) * sensitivity);
-        int deltaZ = Mathf.RoundToInt(-(curZ - lastRawZ) * sensitivity);
+        float deltaX = (-(curX - lastRawX) * sensitivity);
+        float deltaY = ((curY - lastRawY) * sensitivity);
+        float deltaZ = (-(curZ - lastRawZ) * sensitivity);
 
     
         if (Mathf.Abs(deltaX) >= deadzone) 

@@ -27,7 +27,7 @@ public class StepByStep: MonoBehaviour
 
     public float stepSize = 5f;
 
-    public float speed = 4;
+
     private bool wasLeft = false;
     private bool wasRight = false;
 
@@ -90,9 +90,6 @@ public class StepByStep: MonoBehaviour
         bool isRight = horizontal >0.5f;
         bool isLeft = horizontal < -0.5f;
 
-        JointControl brControl = baseRotative.GetComponent<JointControl>();
-        JointControl vaControl = verticalArm.GetComponent<JointControl>();
-        JointControl uDControl = upDownSegment.GetComponent<JointControl>();
 
     if (isRight && !wasRight) targetBaseRotative -= stepSize;
         if (isLeft && !wasLeft) targetBaseRotative += stepSize; 
@@ -108,23 +105,17 @@ public class StepByStep: MonoBehaviour
         if (bButton.action.WasPressedThisFrame()) targetUpDownSegment -= stepSize;
         if (aButton.action.WasPressedThisFrame()) targetUpDownSegment += stepSize;
 
-        ApplySmoothMovement(baseRotative,  targetBaseRotative, ref velBase);
-        ApplySmoothMovement(verticalArm, targetVerticalArm, ref velVertical);
-        ApplySmoothMovement(upDownSegment,  targetUpDownSegment, ref velUpDown);
+        ApplySmoothMovement(baseRotative,  targetBaseRotative, ref velBase, smoothTime);
+        ApplySmoothMovement(verticalArm, targetVerticalArm, ref velVertical, smoothTime);
+        ApplySmoothMovement(upDownSegment,  targetUpDownSegment, ref velUpDown, smoothTime);
 
     }
 
 
-void ApplySmoothMovement(ArticulationBody joint,  float targetValue, ref float currentVelocity)
+void ApplySmoothMovement(ArticulationBody joint,  float targetValue, ref float currentVelocity, float smoothTime)
     {
     
         var drive = joint.xDrive;
-
-        // if (drive.lowerLimit < drive.upperLimit)
-        // {
-        //     targetValue = Mathf.Clamp(targetValue, drive.lowerLimit, drive.upperLimit);
-        // }
-
 
         drive.target = Mathf.SmoothDamp(drive.target, targetValue, ref currentVelocity, smoothTime);
         

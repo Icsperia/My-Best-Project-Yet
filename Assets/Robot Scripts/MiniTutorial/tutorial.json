@@ -2,7 +2,7 @@
     "BasicTutorial": [
         {
             "MoveAround":["Right", "Left","Up","Down"],
-            "MoveRobot":["Left","Right"]
+            "MoveRobot":["Left", "Right", "Up","Down","Forward", "Backward", "Reset", "Turn On Pump", "Turn Off Pump"]
    
         }
     ]

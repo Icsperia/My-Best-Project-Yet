@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class WebCamInScena : MonoBehaviour
 {
-    private WebCamTexture _webCamTexture;
-    private Renderer _renderer;
+    private WebCamTexture webCamTexture;
+    private Renderer renderer;
 
     void Start()
     {
 
-        _renderer = GetComponent<Renderer>();
+        renderer = GetComponent<Renderer>();
 
         if (WebCamTexture.devices.Length > 0)
         {
             
-            _webCamTexture = new WebCamTexture(WebCamTexture.devices[0].name);
+            webCamTexture = new WebCamTexture(WebCamTexture.devices[0].name);
 
-            _renderer.material.mainTexture = _webCamTexture;
+            renderer.material.mainTexture = webCamTexture;
 
     
-            _webCamTexture.Play();
+            webCamTexture.Play();
         }
         else
         {
-            Debug.LogError("Nu am găsit nicio cameră!");
+            Debug.LogError("No camera found!");
         }
     }
 }

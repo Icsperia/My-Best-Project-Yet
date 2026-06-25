@@ -11,7 +11,7 @@ public class IKTargetController : MonoBehaviour
 {
     public ArticulationBody baseRotative;
 
-    [Header("Input Actions")]
+    [Header("Butoane de control")]
     public InputActionProperty leftAction;        // Buton stanga
     public InputActionProperty rightAction;       // Buton dreapta
 
@@ -21,18 +21,17 @@ public class IKTargetController : MonoBehaviour
     public InputActionProperty resetButton;
 
     public InputActionProperty joystick;
-    [Header("Speed")]
+    [Header("Vitezele de deplasare și reset")]
     public float moveSpeed = 0.5f;
    public  float resetSpeed = 5f;
     private bool isResetting = false;
-    [Header("Boundaries")]
+    [Header("Zona de deplasare efector final")]
     public Vector3 minBounds = new Vector3(-2.0f, 1.0f, -2.0f);
     public Vector3 maxBounds = new Vector3(2.0f, 3.0f, 2.0f);
 
     public Vector3 resetPosition = new Vector3(-0.13f, 2.44f, -0.72f);
 
     public float smoothTime ;
-    private Vector2 currentSpeed;
 
 
 
@@ -40,6 +39,13 @@ public class IKTargetController : MonoBehaviour
     {
         if (resetButton != null)
             resetButton.action.Enable();
+    }
+
+
+    void OnDisable()
+    {
+        if (resetButton != null)
+            resetButton.action.Disable();
     }
 
 

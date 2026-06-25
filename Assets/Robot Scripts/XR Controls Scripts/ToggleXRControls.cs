@@ -97,8 +97,12 @@ public class XRControls : MonoBehaviour
 
         }
 
+//         float rotativeBaseAngle = baseRotative.jointPosition[0]*Mathf.Rad2Deg;
+//         float verticalArmAngle = verticalArm.jointPosition[0]*Mathf.Rad2Deg;
+//         float upDownSegmentAngle = upDownSegment.jointPosition[0]*Mathf.Rad2Deg;
 
 
+// Debug.Log($"X: {rotativeBaseAngle:F2} Y: {verticalArmAngle:F2} Z: {upDownSegmentAngle:F2}");
 
     }
 

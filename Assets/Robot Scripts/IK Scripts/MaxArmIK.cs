@@ -73,7 +73,7 @@ public class RoboticArmInverseKinematics : MonoBehaviour
         //Debug.Log($"[IK] Shoulder={targetVerticalArm:F1} Elbow={targetUpDownSegment:F1} d={d:F0}mm");
 
          currentVerticalArm = Mathf.LerpAngle( currentVerticalArm, targetVerticalArm, Time.fixedDeltaTime * jointSpeed);
-         currentUpDownSegment    = Mathf.LerpAngle( currentUpDownSegment,    targetUpDownSegment,    Time.fixedDeltaTime * jointSpeed);
+         currentUpDownSegment = Mathf.LerpAngle( currentUpDownSegment,    targetUpDownSegment,    Time.fixedDeltaTime * jointSpeed);
 
         SetJointAngle(verticalArm,  currentVerticalArm);
         SetJointAngle(upDownSegment,     currentUpDownSegment);
@@ -82,6 +82,7 @@ public class RoboticArmInverseKinematics : MonoBehaviour
     void SetJointAngle(ArticulationBody joint, float angle)
     {
         var drive = joint.xDrive;
+
         drive.target = angle;
         joint.xDrive = drive;
     }

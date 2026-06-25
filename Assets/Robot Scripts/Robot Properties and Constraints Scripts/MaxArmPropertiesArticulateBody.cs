@@ -5,7 +5,7 @@ using UnityEngine;
 public class MaxPropertiesArticulateBody : MonoBehaviour
 {
 
-    [Header("Main Components")]
+    [Header("Segmente principale")]
 
     [SerializeField] private ArticulationBody baseLink;
 
@@ -16,7 +16,7 @@ public class MaxPropertiesArticulateBody : MonoBehaviour
     [SerializeField] private ArticulationBody horizontalArm;
     [SerializeField] private ArticulationBody noozle;
 
-    [Header("Secondary Components")]
+    [Header("Ssegmente secundare")]
     [SerializeField] private ArticulationBody vertical1;
     [SerializeField] private ArticulationBody vertical2;
 
@@ -25,7 +25,7 @@ public class MaxPropertiesArticulateBody : MonoBehaviour
     [SerializeField] private ArticulationBody horizontal2;
     [SerializeField] private ArticulationBody noozleSupport;
 
-[Header("xDrive Custom")]
+[Header("Proprietăți")]
 
     [SerializeField]  private float stiffness;
     [SerializeField]  private float damping;

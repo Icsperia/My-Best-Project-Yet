@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PickUpObjects : MonoBehaviour
 {
+ 
+    [Header("Butoanele de control")]
     public InputActionReference mainTriggerLeft;
     public InputActionReference secondaryButton;
 
@@ -11,6 +13,7 @@ public class PickUpObjects : MonoBehaviour
     private Vector3 lastPumpPosition;
     private Vector3 pumpVelocity;
 
+    [Header("Proprietăți și segment pe care fost aplicat")]
     [SerializeField] Transform pump;
     [SerializeField] private float pickUpRange = 0.5f;
     [SerializeField] private float pickUpForce = 100f;

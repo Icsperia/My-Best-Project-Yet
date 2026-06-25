@@ -23,6 +23,11 @@ public class ResetPositions : MonoBehaviour
             joystickButton.action.Enable();
     }
 
+    void OnDisable()
+    {
+        if (joystickButton != null)
+            joystickButton.action.Disable();
+    }
 
     void FixedUpdate()
     {
@@ -67,7 +72,7 @@ public class ResetPositions : MonoBehaviour
     bool MoveTowardtoZero(ArticulationBody source)
     {
              var drive = source.xDrive;
-             drive.target  = Mathf.MoveTowards(drive.target, 0.0f, resetSpeed*Time.fixedDeltaTime);
+             drive.target  = Mathf.MoveTowards(drive.target, 0.0f, resetSpeed*Time.deltaTime);
              source.xDrive = drive;
 
              return Mathf.Abs(drive.target) < 0.001f;

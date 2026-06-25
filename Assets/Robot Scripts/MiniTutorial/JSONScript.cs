@@ -20,13 +20,21 @@ public class JSONScript : MonoBehaviour
         string allTutorials = " ";
         foreach (var data in basicTutorials.BasicTutorial)
         {
-            allTutorials += $"Move {data.MoveAround[0]} \n";
-            allTutorials += $"Move {data.MoveAround[1]} \n";
-            allTutorials += $"Move {data.MoveAround[2]} \n";
-            allTutorials += $"Move {data.MoveAround[3]} \n";
+            allTutorials += $"Move: {data.MoveAround[0]} \n";
+            allTutorials += $"Move: {data.MoveAround[1]} \n";
+            allTutorials += $"Move: {data.MoveAround[2]} \n";
+            allTutorials += $"Move: {data.MoveAround[3]} \n";
 
-            allTutorials += $"MoveRobot {data.MoveRobot[0]} \n";
-            allTutorials += $"MoveRobot {data.MoveRobot[1]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[0]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[1]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[2]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[3]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[4]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[5]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[6]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[7]} \n";
+            allTutorials += $"MoveRobot: {data.MoveRobot[8]} \n";
+
         }
 
         tut.text = allTutorials;

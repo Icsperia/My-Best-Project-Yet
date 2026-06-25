@@ -137,22 +137,24 @@ while True:
             reset_msg =  " Reseted:{:.1f}".format(armInitPos)
             MQTTEsp.pub("reset/topic", reset_msg)
 
-        if xDelta != 0 or yDelta != 0 or zDelta != 0:
-            # target_x = x + xDelta
-            # target_y = y + yDelta
-            # target_z = z + zDelta
-            # if arm.set_position((target_x, target_y, target_z), speed):
-            #     x = target_x
-            #     y = target_y
-            #     z = target_z
+        # if xDelta != 0 or yDelta != 0 or zDelta != 0:
+        #     target_x = x + xDelta
+        #     target_y = y + yDelta
+        #     target_z = z + zDelta
+        #     if arm.set_position((target_x, target_y, target_z), speed):
+        #         x = target_x
+        #         y = target_y
+        #         z = target_z
 
             MQTTEsp.fbaseAngle = 0
             MQTTEsp.verticalArmAngle = 0
             MQTTEsp.upDownAngle = 0
+            
+            MQTTEsp.fbaseAngle = 0
             target_x = x + xDelta
             if arm.set_position((target_x, y, z), speed):
                 x = target_x   
-                MQTTEsp.fbaseAngle = 0
+        
             else:     
                 MQTTEsp.fbaseAngle = 0
            

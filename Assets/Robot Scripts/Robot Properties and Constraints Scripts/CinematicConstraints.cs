@@ -1,29 +1,29 @@
 using UnityEngine;
 
-public class Constraints : MonoBehaviour
+public class CinematicConstraints : MonoBehaviour
 {
 
 
-    [Header("Main Components")]
+    [Header("Segmente principale")]
     public ArticulationBody verticalArm;
     public ArticulationBody horizontalArm;
     public ArticulationBody upDownSegment;
 
-    [Header("Secondary Components")]
+    [Header("Segmente secundare")]
     public ArticulationBody pumpSupport1;
     public ArticulationBody vertical2;
     public ArticulationBody horizontalSegment1;
     public ArticulationBody vertical1;
     public ArticulationBody horizontalSegment2;
 
-    [Header("Offsets")]
+    // [Header("Offsets")]
 
-    public float offset;
-    public float offset1;
-    public float offset2;
+    // public float offset;
+    // public float offset1;
+    // public float offset2;
 
 
-    public float pumpOffset;
+    //public float pumpOffset;
     // public float leaningIntensity;
     // public float leaningIntensityPump ;
 
@@ -71,23 +71,23 @@ public class Constraints : MonoBehaviour
         vertical1.xDrive = vertical1Drive;
 
         //////////////////////////////
-        CompensationPositive(verticalArm, vertical2, offset);
+        CompensationPositive(verticalArm, vertical2);
 
         //////////////////////////////////
-        CompensationPositive(verticalArm, horizontalSegment2, offset1);
+        CompensationPositive(verticalArm, horizontalSegment2);
 
         /////////////////////////////////
-        CompensationNegative(upDownSegment, horizontalSegment1, offset2);
+        CompensationNegative(upDownSegment, horizontalSegment1);
 
 
     }
-    void CompensationNegative(ArticulationBody source, ArticulationBody target, float offset)
+    void CompensationNegative(ArticulationBody source, ArticulationBody target)
     {
         float angle = source.jointPosition[0] * Mathf.Rad2Deg;
 
         var drive = target.xDrive;
 
-        drive.target = -angle + offset;
+        drive.target = -angle;
 
         target.xDrive = drive;
 
@@ -95,13 +95,13 @@ public class Constraints : MonoBehaviour
     }
 
 
-    void CompensationPositive(ArticulationBody source, ArticulationBody target, float offset)
+    void CompensationPositive(ArticulationBody source, ArticulationBody target)
     {
         float angle = source.jointPosition[0] * Mathf.Rad2Deg;
 
         var drive = target.xDrive;
 
-        drive.target = angle + offset;
+        drive.target = angle;
 
         target.xDrive = drive;
 
